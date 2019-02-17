@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerBeh : MonoBehaviour
 {
-    public GameObject bullet;
-    GameObject b;
+    public GameObject bullet, enemy1, enemy2;
+    GameObject b, e1,e2;
     Rigidbody rb;
     public int level;
     Transform t;
@@ -16,11 +16,8 @@ public class PlayerBeh : MonoBehaviour
     bool block;
 
 
-    //private Coroutine coroutine;
-
     void Start()
     {
-        //coroutine = StartCoroutine("shooting");
         waitForShoot = 30;
         level = 1;
         angularVel = 1f;
@@ -32,6 +29,11 @@ public class PlayerBeh : MonoBehaviour
         t = this.GetComponent<Transform>();
         i = 0;
         block = false;
+        e2= Instantiate(enemy2, new Vector3(-13.73f,0,0),Quaternion.identity);
+        SetEnemy2(e2, 7f,3f);
+        e1 = Instantiate(enemy1, new Vector3(-10.68f, 0, 0), Quaternion.identity);
+        SetEnemy1(e1, 7f, 3f);
+
 
     }
 
@@ -69,8 +71,30 @@ public class PlayerBeh : MonoBehaviour
             var myScriptReference = e.GetComponent<BulletBeh>();
             if (myScriptReference != null)
             {
-                myScriptReference.SetBullet(radialSpeed * 2f, angularVel > 0);
-                print("BULL WAS SETTED");
+                myScriptReference.SetBullet(radialSpeed * 2f, angularVel > 0, false,false);
+            }
+        }
+    }
+    public void SetEnemy2(GameObject e, float speedEnemy, float frecuencyOfShooting)
+    { 
+        if (e != null)
+        {
+            var myScriptReference = e.GetComponent<Enemy2Beh>();
+            if (myScriptReference != null)
+            {
+                myScriptReference.SetEnemy2( speedEnemy,  frecuencyOfShooting);
+            }
+        }
+    }
+
+    public void SetEnemy1(GameObject e, float speedEnemy, float frecuencyOfShooting)
+    {
+        if (e != null)
+        {
+            var myScriptReference = e.GetComponent<Enemy1Beh>();
+            if (myScriptReference != null)
+            {
+                myScriptReference.SetEnemy1(speedEnemy, frecuencyOfShooting);
             }
         }
     }

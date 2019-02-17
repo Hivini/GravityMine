@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletBeh : MonoBehaviour
 {
+    bool isEnemy;
     Rigidbody rb;
     Transform t;
     float x, y,r;
@@ -11,6 +12,7 @@ public class BulletBeh : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isEnemy = false;
         Gm = 0.5f;
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
@@ -29,14 +31,24 @@ public class BulletBeh : MonoBehaviour
         }
         rb.AddForce(-Gm*x/r*r*r, -Gm * y / r * r * r, 0,ForceMode.Acceleration);
     }
-    public void SetBullet(float speed, bool direction)
+
+
+    public void SetBullet(float speed, bool direction, bool isEnemy, bool isRadial)
     {
+        this.isEnemy = isEnemy;
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
         x = t.position.x;
         y = t.position.y;
         r = Mathf.Sqrt(x * x + y * y);
-        rb.velocity = new Vector3((direction ? 1:-1)*speed*(y/r), -1f*(direction ? 1 : -1) * speed*(x/r),0); 
-        //rb.velocity = new Vector3( speed * (x / r),   speed * (y / r), 0);
+        if(!isRadial)
+        {
+            rb.velocity = new Vector3((direction ? 1 : -1) * speed * (y / r), -1f * (direction ? 1 : -1) * speed * (x / r), 0);
+        }
+        else
+        {
+            rb.velocity = new Vector3( speed * (x / r),   speed * (y / r), 0);
+        }
+
     }
 }

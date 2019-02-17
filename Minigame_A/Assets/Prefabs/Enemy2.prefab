@@ -121,5 +121,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059a1846188aada4c9267273b7780b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2792006777299328030, guid: 79e2acdf5d5fd8e43937c4391d01fffb, type: 3}
   bullet: {fileID: 1626423942325098153, guid: 04c37ae27fab5ba4286bec3b8450069d, type: 3}
+  frecuencyOfShooting: 0

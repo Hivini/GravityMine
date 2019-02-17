@@ -93,6 +93,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1626423942325098153, guid: 04c37ae27fab5ba4286bec3b8450069d, type: 3}
+  enemy1: {fileID: 3269234649746543451, guid: dbd4a30db9441ae4a8de74a949616d28, type: 3}
+  enemy2: {fileID: 2492355838028871788, guid: 2a9f39873e3d28f459311f3661f37dfc, type: 3}
   level: 0
   radialSpeed: 0
   radialAccel: 0
