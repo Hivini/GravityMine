@@ -9,7 +9,7 @@ public class PlayerBeh : MonoBehaviour
     float ti,w, dt, theta;
     Transform t;
     Vector3 origin, relative;
-    bool accelerator;
+    bool accelerator, inicio;
     Coroutine coroutine;
     Rigidbody rb;
 
@@ -17,6 +17,7 @@ public class PlayerBeh : MonoBehaviour
     void Start()
 
     {
+        inicio = false;
         rb = GetComponent<Rigidbody>();
         accelerator = false;
         ti = 0;
@@ -26,58 +27,54 @@ public class PlayerBeh : MonoBehaviour
         acceleration = 0.05f;
         origin = new Vector3(0, radius, 0);
         w= 0;
-        dt = 0.05f;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (accelerator)
+        inicio = Input.GetKeyDown(KeyCode.Space);
+
+            if (accelerator) // EL ACELERADOR ESTA PRENDIDO
             {
-                StopCoroutine(coroutine);
-                r = Mathf.Sqrt(x*x+y*y);
-                rb.velocity = 7*(w*r)*(new Vector3(-y/r,x/r,0));
+                if (inicio) // APAGA EL ACELERADOR
+                {
+                rb.WakeUp();
+                r = Mathf.Sqrt(x * x + y * y);
+                rb.velocity = 7 * (w * r) * (new Vector3(-y / r, x / r, 0));
                 accelerator = false;
+                inicio = false;
+                }
+                else // MANTIENE ACELERADOR PRENDIDO.
+                {
+                    ti += Time.deltaTime;
+                    x = Mathf.Cos(ti * w + theta);
+                    y = Mathf.Sin(ti * w + theta);
+                    t.position = radius * (new Vector3(x, y, 0)) + origin;
+                    w += acceleration;
+                    w = (w > maxPower ? maxPower : w);
+                }
             }
             else
-            {
-                accelerator = true;
-                if (rb.velocity.magnitude<0.001)
+            {//EL ACELERADOR ESTA APAGADO.
+                if (inicio) //ENCIENDE ACELERADOR.
                 {
-                    origin = new Vector3(t.position.x , t.position.y + radius , 0);
-                    theta = -Mathf.PI/2;
+                    origin = (rb.velocity.magnitude < 0.001) ?
+                        (new Vector3(t.position.x, t.position.y + radius, 0))
+                        : (new Vector3(t.position.x + (-radius * rb.velocity.normalized.y),
+                                    t.position.y + (radius * rb.velocity.normalized.x), 0));
+                    theta = (rb.velocity.magnitude < 0.001) ?
+                        (-Mathf.PI / 2)
+                        : ((float)(System.Math.Atan2(x, y)));
+                    if (theta < 0) theta += 2 * Mathf.PI;
 
+                    ti = 0;
+                    rb.velocity = Vector3.zero;
+                    rb.Sleep();
+                    inicio = false;
+                    accelerator = true;
                 }
-                else
-                {
-                    origin = new Vector3(t.position.x + (-radius * rb.velocity.normalized.y), t.position.y + (radius * rb.velocity.normalized.x), 0);
-                    theta = (float)(System.Math.Atan2(x, y) );
-                    if (theta < 0) theta += 2*Mathf.PI;
-
-                }
-                ti = 0;
-                rb.velocity = Vector3.zero;
-                coroutine = StartCoroutine(syncrotron()); 
-            }
-        }
-        
-    }
-    IEnumerator syncrotron()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(dt);
-            ti += dt;
-            x = Mathf.Cos(ti * w+theta);
-            y = Mathf.Sin(ti * w + theta);
-            t.position = radius * (new Vector3(x, y, 0)) + origin;
-            w += acceleration;
-            w = (w > maxPower ? maxPower : w);
-            print(w);
-        }
+            }   
     }
 }
 
