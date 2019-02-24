@@ -1,11 +1,10 @@
-﻿using Assets.Scripts.Interfaces;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionForPC : MonoBehaviour, IActionOnInteraction
+public class PcsActions : MonoBehaviour
 {
-    public void action(string option)
+    public void start(string option)
     {
         switch (option)
         {
@@ -19,5 +18,4 @@ public class ActionForPC : MonoBehaviour, IActionOnInteraction
                 break;
         }
     }
-
 }

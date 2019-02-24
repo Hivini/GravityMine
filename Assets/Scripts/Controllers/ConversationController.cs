@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +18,11 @@ namespace Assets.Scripts.Controllers
         private Sprite[] othersSprite;
         private Sprite playerSprite;
         private GameObject messageBox;
-        private Action<string> action;
+        private Action onActionFound;
 
         public ConversationController(TextAsset textAsset, Text text, Image image, Sprite[] others, GameObject messageBox)
         {
-            this.action = null;
+            this.onActionFound = null;
             this.textAsset = textAsset;
             this.textBox = text;
             this.image = image;
@@ -38,9 +37,9 @@ namespace Assets.Scripts.Controllers
             }
         }
 
-        public ConversationController(TextAsset textAsset, Text text, Image image, Sprite[] others, GameObject messageBox, Action<string> action):this(textAsset, text, image, others, messageBox)
+        public ConversationController(TextAsset textAsset, Text text, Image image, Sprite[] others, GameObject messageBox, Action onActionFound) :this(textAsset, text, image, others, messageBox)
         {
-            this.action = action;
+            this.onActionFound = onActionFound;
 
         }
         private void startConversation()
@@ -66,7 +65,7 @@ namespace Assets.Scripts.Controllers
                 changeSprite(int.Parse(conversation[currentMessage][0]));
                 if (conversation[currentMessage].Length == 3)
                 {
-                    action(conversation[currentMessage][2]);
+                    onActionFound.Invoke(conversation[currentMessage][2]);
                 }
                 currentMessage++;
             }
