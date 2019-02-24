@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        transform.Translate(new Vector3(0, 0, z * Time.deltaTime * speed));
-
+        transform.Translate(0, 0, z * Time.deltaTime * speed);
+        
         if (onGround && y > 0)
         {
             rb.AddForce(0, jumpForce, 0);
