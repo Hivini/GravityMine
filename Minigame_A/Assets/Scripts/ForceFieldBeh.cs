@@ -13,18 +13,12 @@ public class ForceFieldBeh : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        forceField = 0.3f;
+        forceField = 0.3f;//fields magnitude
 
-        origin = new Vector3(xOrigin, yOrigin, zOrigin);
+        origin = new Vector3(xOrigin, yOrigin, zOrigin);// origin of the force field.
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    
-       
-    }
     private void OnTriggerStay(Collider other)
     {
         rbo = other.GetComponent<Rigidbody>();
@@ -37,14 +31,15 @@ public class ForceFieldBeh : MonoBehaviour
         xt = other.transform.position.x;
         yr = yt - origin.y;
         xr = xt - origin.x;
-        rCubo = Mathf.Sqrt(yr * yr * yr + xr * xr * xr);
+        rCubo = Mathf.Sqrt(yr * yr * yr + xr * xr * xr); // distance cubed from the origin to the object affected.
 
         
         fx = -(xr / (Mathf.Abs(rCubo)<0.001f?(0.001f*Mathf.Sign(rCubo)): rCubo)) * forceField;
         fy = -(yr / (Mathf.Abs(rCubo) < 0.001f ? (0.001f * Mathf.Sign(rCubo)) : rCubo)) * forceField;
-        print("fx: "+fx);
-        print("fy: " + fy);
-        rbo.AddForce((float.IsNaN(fx)?0:(Mathf.Abs(fx)>10f?Mathf.Sign(fx)*10f:fx)), (float.IsNaN(fy) ? 0 : (Mathf.Abs(fy) > 10f ? Mathf.Sign(fy) * 10f : fy)), 0, ForceMode.Impulse);
+        rbo.AddForce(   // force of the kind GmM / r^2
+            (float.IsNaN(fx)?0:(Mathf.Abs(fx)>10f?Mathf.Sign(fx)*10f:fx)),
+            (float.IsNaN(fy) ? 0 : (Mathf.Abs(fy) > 10f ? Mathf.Sign(fy) * 10f : fy)),
+            0, ForceMode.Impulse);
     }
     private void OnTriggerExit(Collider other)
     {

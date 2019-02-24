@@ -31,11 +31,15 @@ public class BulletBeh : MonoBehaviour
         }
         rb.AddForce(-Gm*x/r*r*r, -Gm * y / r * r * r, 0,ForceMode.Acceleration);
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+                Destroy(gameObject);
+    }
 
     public void SetBullet(float speed, bool direction, bool isEnemy, bool isRadial)
     {
         this.isEnemy = isEnemy;
+        this.tag = isEnemy ? "BulletEnemy" : "BulletFriend";
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
         x = t.position.x;

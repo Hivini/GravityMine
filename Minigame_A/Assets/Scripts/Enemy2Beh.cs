@@ -17,12 +17,6 @@ public class Enemy2Beh : MonoBehaviour
     private Coroutine coroutine;
     
 
-    void Start()
-    {  
-            
-    }
-
-
     void Update()
     {
         x = t.position.x;
@@ -45,6 +39,13 @@ public class Enemy2Beh : MonoBehaviour
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
         coroutine = StartCoroutine("Shoot");
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))
+        {
+            Destroy(gameObject);
+        }
     }
 
 

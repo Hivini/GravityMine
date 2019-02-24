@@ -40,6 +40,13 @@ public class Enemy1Beh : MonoBehaviour
         rb.velocity = new Vector3(angularVel * (y / r), -angularVel * (x / r), 0);
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))
+        {
+            Destroy(gameObject);
+        }
+    }
 
     IEnumerator Shoot()
     {
