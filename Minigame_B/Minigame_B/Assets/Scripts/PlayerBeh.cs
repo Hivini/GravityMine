@@ -9,7 +9,7 @@ public class PlayerBeh : MonoBehaviour
     float speed, gForce;
     Rigidbody rb;
     Transform t;
-    int status,i;
+    int status,i, lives, level;
     bool block;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +22,8 @@ public class PlayerBeh : MonoBehaviour
         speed = 1.2f;
         gForce = 3.2f;
         block = false;
+        lives = 5;
+        level = 1;
         
     }
 
@@ -51,23 +53,24 @@ public class PlayerBeh : MonoBehaviour
 
             rb.AddForce((isVertical ? 0: (gForce* (sign ? 1 : -1)) ),(isVertical? (gForce * (sign ? 1 : -1)) : 0 ),0,ForceMode.Acceleration);
         }
-        if (i==15)
+        if (i==7)
         {
             block = false;
             i= 0;
         }
         i++;
     }
-
-    private void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.tag == "Finish")
+        if (other.tag == "Finish")
         {
-            // aumenta o cambia dificultad.
+            level++;
+            print("level: " + level);
         }
-        else if (collision.collider.tag == "DeadWall")
+        else if (other.tag == "DeadWall")
         {
-            // que se muera alv.
+            lives--;
+            print("lives: " + lives);
         }
     }
 
