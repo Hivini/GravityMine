@@ -415,6 +415,7 @@ GameObject:
   - component: {fileID: 373258694}
   - component: {fileID: 373258697}
   - component: {fileID: 373258696}
+  - component: {fileID: 373258698}
   m_Layer: 0
   m_Name: some_player
   m_TagString: Untagged
@@ -459,7 +460,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b1341f0588c52074ba0036a9d15886a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ed124c34fe6751b44bbb129d328d82ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -498,12 +499,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   message: {fileID: 1569782331}
   textAsset: {fileID: 4900000, guid: fbd9e75b41bd33c45bddfb59fc266ad2, type: 3}
-  sprite: {fileID: 21300000, guid: b1341f0588c52074ba0036a9d15886a1, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 66e96548d006a482e93730e79e82b5b7, type: 3}
+  - {fileID: 21300000, guid: 800a6fff1a2ef4078b6dcb89425081bd, type: 3}
+  - {fileID: 21300000, guid: bc0b180d07b85490a8bbb7db66ec8cc5, type: 3}
   textBox: {fileID: 1093837252}
   image: {fileID: 1129960760}
   onActionFound:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 373258698}
+        m_MethodName: start
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: Action, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
 --- !u!65 &373258697
 BoxCollider:
@@ -518,6 +533,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.8300014, y: 5.01, z: 6.1153207}
   m_Center: {x: 1.360919e-14, y: 0, z: -2.9576612}
+--- !u!114 &373258698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373258693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6d6bdf40ca259498584f23f430bfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &591918162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -635,6 +662,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5226564864198469782, guid: fef3da14942a346c79f7f9f3b3e4522f,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226564864198469782, guid: fef3da14942a346c79f7f9f3b3e4522f,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1201207618}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fef3da14942a346c79f7f9f3b3e4522f, type: 3}
 --- !u!1001 &706910677
