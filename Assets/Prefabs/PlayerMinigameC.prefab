@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1327691285}
-  m_LocalRotation: {x: 0.19082147, y: 0.65257, z: -0.17485563, w: 0.7121553}
-  m_LocalPosition: {x: -2.519, y: 2.1, z: -0.19}
+  m_LocalRotation: {x: 0.2585728, y: -0.04213311, z: 0.011289535, w: 0.96500653}
+  m_LocalPosition: {x: 0.35, y: 2.1, z: -2.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1777891447103650308}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 85, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: -5, z: 0}
 --- !u!20 &1327691287
 Camera:
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 7580488642062665678}
   m_Layer: 4
   m_Name: PlayerMinigameC
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,7 +143,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 4bd9cf7b3faf6e145a30501b3ce10c10, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,9 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df29788c3bbbb0d488ada1556954e414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 0
-  speed: 0
-  bullet: {fileID: 0}
+  jumpForce: 300
+  speed: 10
+  bullet: {fileID: 1626423942325098153, guid: 04c37ae27fab5ba4286bec3b8450069d, type: 3}
 --- !u!54 &7580488642062665678
 Rigidbody:
   m_ObjectHideFlags: 0
