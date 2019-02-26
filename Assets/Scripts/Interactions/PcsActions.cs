@@ -8,7 +8,7 @@ public class PcsActions : MonoBehaviour
     {
         switch (option)
         {
-            case "hola\r":
+            case "hola":
                 Debug.Log("hola, como estas?");
                 break;
             case "print\r":

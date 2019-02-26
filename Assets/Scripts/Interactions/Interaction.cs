@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Controllers;
-using Assets.Scripts.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +9,7 @@ public class Interaction : MonoBehaviour
 {
     public GameObject message;
     public TextAsset textAsset;
-    public Sprite sprite;
+    public Sprite[] sprites;
     public Text textBox;
     public Image image;
 
@@ -26,7 +25,7 @@ public class Interaction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        conversation = new ConversationController(textAsset, textBox, image, new Sprite[] {sprite}, message, onActionFound);
+        conversation = new ConversationController(textAsset, textBox, image, sprites, message, onActionFound);
         
         
     }

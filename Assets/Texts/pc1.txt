@@ -1,5 +1,9 @@
 1-This is a test
-0-Hey-hola
-1-Do you want to play a game-print
+0-Hey
+1-Do you want to play a game
 0-Let me think...
 0-No
+1-I'm sprite 1-print
+2-I'm sprite 2
+3-I'm sprite 3
+0-I'm player-hola
