@@ -179,8 +179,8 @@ Canvas:
   m_GameObject: {fileID: 73944275}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1011881753}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -453,6 +453,7 @@ GameObject:
   - component: {fileID: 637923374}
   - component: {fileID: 637923373}
   - component: {fileID: 637923371}
+  - component: {fileID: 637923372}
   m_Layer: 0
   m_Name: PC
   m_TagString: Untagged
@@ -477,6 +478,33 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 2ee92f06cae3a1f49847bf6ce9d041e7, type: 3}
   textBox: {fileID: 383910926}
   image: {fileID: 619789134}
+  onActionFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 637923372}
+        m_MethodName: start
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Action, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &637923372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637923370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6d6bdf40ca259498584f23f430bfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &637923373
 BoxCollider:
   m_ObjectHideFlags: 0
