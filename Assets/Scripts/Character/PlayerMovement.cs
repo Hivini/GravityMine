@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rb;
     private bool onGround;
+    private bool secondJump;
     
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         onGround = false;
+        secondJump = false;
     }
 
     // Update is called once per frame
@@ -29,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(0, jumpForce, 0);
             onGround = false;
+            secondJump = true;
+
+        }
+        else if (!onGround && y > 0)
+        {
+            rb.AddForce(0, jumpForce, 0);
         }
     }
 
@@ -37,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Ground")
         {
             onGround = true;
+            secondJump = false;
         }
     }
 }
