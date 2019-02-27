@@ -144,13 +144,23 @@ public class Maze
 
     public bool[,] getBooleans()
     {
-        bool[,] matrix = new bool[height * 2 - 1, width * 2 - 1];
+        bool[,] matrix = new bool[height * 2+1, width * 2+1];
         Tile current = start;
         Tile currentDown = start;
-        int i = 0, j;
+        for(int a = 0; a < matrix.GetLength(0); a++)
+        {
+            matrix[a, 0] = true;
+            matrix[a, matrix.GetLength(1)-1] = true;
+        }
+        for (int b = 0; b < matrix.GetLength(1); b++)
+        {
+            matrix[0, b] = true;
+            matrix[matrix.GetLength(0) - 1,b] = true;
+        }
+        int i = 1, j;
         while (currentDown != null)
         {
-            j = 0;
+            j = 1;
             while (current != null)
             {
                 matrix[i, j] = false;
