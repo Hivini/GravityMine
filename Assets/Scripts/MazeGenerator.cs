@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
+
+    public GameObject block;
     // Start is called before the first frame update
     void Start()
     {
-        Maze maze = new Maze(9,9);
+        Maze maze = new Maze(32,20);
         bool[,] boolMaze = maze.getBooleans();
+        for(int i =0; i< boolMaze.GetLength(0); i++)
+        {
+            for(int j = 0; j<boolMaze.GetLength(1); j++)
+            {
+                if(boolMaze[i,j])
+                    Instantiate(block, new Vector3(i*0.5f-8, j*0.5f-6, 0), new Quaternion());
+            }
+        }
         
     }
 
-
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
 
 public class Maze
@@ -21,7 +35,7 @@ public class Maze
     Tile start;
     int width, height;
 
-    public Maze(int w, int h )
+    public Maze(int w, int h)
     {
         this.width = Mathf.CeilToInt((w + 1) / 2.0f);
         this.height = Mathf.CeilToInt((h + 1) / 2.0f);
