@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy2Beh : MonoBehaviour
 {
 
-    public GameObject player, bullet;
+    GameObject player;
+    public GameObject bullet;
     public float frecuencyOfShooting;
 
     GameObject b;
@@ -13,12 +14,14 @@ public class Enemy2Beh : MonoBehaviour
     Transform t, tf;
     float x, y, r, radius, angularVel, speedEnemy, radialFrec, radialSpeed;
     int level;
-    
+    bool block;
+
     private Coroutine coroutine;
     
 
     void Update()
     {
+        player = GameObject.Find("Planeta");
         x = t.position.x;
         y = t.position.y;
         r = Mathf.Sqrt(x * x + y * y);
@@ -30,6 +33,7 @@ public class Enemy2Beh : MonoBehaviour
 
     public void SetEnemy2(float speedEnemy, float frecuencyOfShooting)
     {
+        block = false;
         this.frecuencyOfShooting = frecuencyOfShooting;
         this.speedEnemy = speedEnemy;
         radialFrec = 0.5f;
@@ -42,8 +46,10 @@ public class Enemy2Beh : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))
+        if ((collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))&&(!block))
         {
+            block = true;
+            IVeDestroyed(gameObject, player);
             Destroy(gameObject);
         }
     }
@@ -74,6 +80,17 @@ public class Enemy2Beh : MonoBehaviour
             if (myScriptReference != null)
             {
                 myScriptReference.SetBullet(radialSpeed * 2f, angularVel > 0, true, false);
+            }
+        }
+    }
+    public void IVeDestroyed(GameObject e, GameObject p)
+    {
+        if (e != null && p != null)
+        {
+            var myScriptReference = p.GetComponent<PlayerBeh>();
+            if (myScriptReference != null)
+            {
+                myScriptReference.enemyDestroyed(e);
             }
         }
     }

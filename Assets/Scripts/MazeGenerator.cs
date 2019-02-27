@@ -12,11 +12,7 @@ public class MazeGenerator : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
 
 public class Maze
@@ -25,7 +21,7 @@ public class Maze
     Tile start;
     int width, height;
 
-    public Maze(int w, int h)
+    public Maze(int w, int h )
     {
         this.width = Mathf.CeilToInt((w + 1) / 2.0f);
         this.height = Mathf.CeilToInt((h + 1) / 2.0f);
@@ -162,7 +158,7 @@ public class Maze
 }
 
 
-class Tile
+public class Tile
 {
     bool visited;
     Tile up, right, left, down;

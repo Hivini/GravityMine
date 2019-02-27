@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy1Beh : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject player, bullet;
+    GameObject player;
+    public GameObject bullet;
     GameObject b;
     Rigidbody rb;
     Transform t;
@@ -13,9 +14,10 @@ public class Enemy1Beh : MonoBehaviour
     int level;
     float angularVel, frecuencyOfShooting;
     private Coroutine coroutine;
-
+    bool block;
     void Start()
     {
+        block = false;
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
 
@@ -24,6 +26,7 @@ public class Enemy1Beh : MonoBehaviour
 
     public void SetEnemy1(float speedEnemy, float frecuencyOfShooting)
     {
+        player = GameObject.Find("Planeta");
         this.frecuencyOfShooting = frecuencyOfShooting;
         this.angularVel = speedEnemy;
         rb = this.GetComponent<Rigidbody>();
@@ -42,8 +45,10 @@ public class Enemy1Beh : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))
+        if ((collision.collider.tag.Equals("Player") || collision.collider.tag.Equals("BulletFriend"))&&(!block))
         {
+            block = true;
+            IVeDestroyed(gameObject, player);
             Destroy(gameObject);
         }
     }
@@ -64,15 +69,28 @@ public class Enemy1Beh : MonoBehaviour
     }
 
 
-    public void SetBullet(GameObject e)
+    public void SetBullet(GameObject b)
     {
-        if (e != null)
+        if (b != null)
         {
-            var myScriptReference = e.GetComponent<BulletBeh>();
+            var myScriptReference = b.GetComponent<BulletBeh>();
             if (myScriptReference != null)
             {
-                myScriptReference.SetBullet(angularVel * 2f, false, true, true);
+                myScriptReference.SetBullet(angularVel * 3f, false, true, true);
+            }
+        }
+    }
+
+    public void IVeDestroyed(GameObject e, GameObject p)
+    {
+        if (e != null && p != null)
+        {
+            var myScriptReference = p.GetComponent<PlayerBeh>();
+            if (myScriptReference != null)
+            {
+                myScriptReference.enemyDestroyed(e);
             }
         }
     }
 }
+

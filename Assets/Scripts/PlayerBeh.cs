@@ -6,25 +6,32 @@ using UnityEngine.UI;
 public class PlayerBeh : MonoBehaviour
 {
     public GameObject bullet, enemy1, enemy2;
-    GameObject b, e1,e2;
+    List<GameObject> en = new List<GameObject>();
+    GameObject b, e;
     Rigidbody rb;
     public int level, lives;
     Transform t;
+    float[] radios = new float[] { 10.5f, -10.5f, -13.5f, 13.5f, 5.6f, 20.3f, 2.2f, 17f, -5.6f, -20.3f, -2.2f, -17f };
     float w, x, y, r, vr;
     int i, waitForShoot;
     public float radialSpeed, radialAccel, maxAngularVel;
     float angularVel, radialVel;
     bool block;
     public Text text;
+    int fibon, fibon1, rr;
+    int sizeEnemies;
+    System.Random rand = new System.Random();
 
 
     void Start()
     {
-       
+        sizeEnemies = 2;
+        fibon = 1;
+        fibon1=1;
+
         level = 1;
         lives = 10;
         text.text = "Level:    " + level + "     Lives: " + lives;
-
         // Controller mechanics parameters.
         
         angularVel = 1f;
@@ -41,16 +48,17 @@ public class PlayerBeh : MonoBehaviour
         t = this.GetComponent<Transform>();
 
         block = false;
-        e2= Instantiate(enemy2, new Vector3(-13.73f,0,0),Quaternion.identity);
-        SetEnemy2(e2, 7f,3f);
-        e1 = Instantiate(enemy1, new Vector3(-10.68f, 0, 0), Quaternion.identity);
-        SetEnemy1(e1, 7f, 3f);
-
+        e= Instantiate(enemy2, new Vector3(radios[3],0,0),Quaternion.identity);
+        SetEnemy2(e, 7f,3f);
+        e = Instantiate(enemy1, new Vector3(radios[0], 0, 0), Quaternion.identity);
+        SetEnemy1(e, 7f, 3f);
+        //this.sizeEnemies = 2;
 
     }
 
     void Update()
     {
+        print(sizeEnemies);
         w = Input.GetAxis("Horizontal");
         vr = Input.GetAxis("Vertical");
         radialVel = radialSpeed * vr;
@@ -116,7 +124,39 @@ public class PlayerBeh : MonoBehaviour
             }
         }
     }
-
+    public void enemyDestroyed(GameObject e)
+    {
+        print(sizeEnemies);
+        this.sizeEnemies--;
+        print(sizeEnemies);
+        if (sizeEnemies == 0)
+        {
+            level++;
+            for (int i=0; i<fibon;i++)
+            {
+                rr = rand.Next(11);
+                e = Instantiate(enemy1, new Vector3(radios[rr], 0, 0), Quaternion.identity);
+                SetEnemy1(e, 7f+level, 3f+(level/6f));
+                sizeEnemies++;
+            }
+            int aux;
+            aux = fibon + fibon1;
+            fibon1 = fibon;
+            fibon = aux;
+            
+            for (int j = 0; j < level; j++)
+            {
+                rr = rand.Next(11);
+                for (int i=0;i<radios.Length ;i++)
+                {
+                    print(radios[i]);
+                }
+                e = Instantiate(enemy2, new Vector3(radios[rr], 0, 0), Quaternion.identity);
+                SetEnemy2(e, 7f+level, 3f+(level / 6f));
+                sizeEnemies++;
+            }
+        }
+    }
     public void SetEnemy1(GameObject e, float speedEnemy, float frecuencyOfShooting)
     {
         if (e != null)
