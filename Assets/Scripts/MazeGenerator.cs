@@ -9,7 +9,7 @@ public class MazeGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Maze maze = new Maze(32,20);
+        Maze maze = new Maze(20,32);
         bool[,] boolMaze = maze.getBooleans();
         for(int i =0; i< boolMaze.GetLength(0); i++)
         {
