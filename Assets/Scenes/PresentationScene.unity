@@ -468,7 +468,7 @@ SpriteRenderer:
   m_Size: {x: 5.83, y: 5.01}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &373258695
@@ -803,7 +803,7 @@ PrefabInstance:
     - target: {fileID: 6234678793672688274, guid: 8b9a6abfcfc3043b88b2c37645a1457a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6234678793672688274, guid: 8b9a6abfcfc3043b88b2c37645a1457a,
         type: 3}
@@ -976,7 +976,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 47468688}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1553603936
 GameObject:

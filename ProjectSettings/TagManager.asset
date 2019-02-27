@@ -10,6 +10,9 @@ TagManager:
   - Enemy1
   - BulletEnemy
   - BulletFriend
+  - Wall
+  - DeadWall
+  - DestructablePlatform
   layers:
   - Default
   - TransparentFX
