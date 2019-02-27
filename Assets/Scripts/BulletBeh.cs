@@ -16,12 +16,13 @@ public class BulletBeh : MonoBehaviour
         Gm = 0.5f;
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
-        Destroy(gameObject, 3);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
         x = t.position.x;
         y = t.position.y;
         r = Mathf.Sqrt(x * x + y * y);
@@ -39,6 +40,7 @@ public class BulletBeh : MonoBehaviour
     public void SetBullet(float speed, bool direction, bool isEnemy, bool isRadial)
     {
         this.isEnemy = isEnemy;
+        Destroy(gameObject, isEnemy?3:1);
         this.tag = isEnemy ? "BulletEnemy" : "BulletFriend";
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
@@ -51,7 +53,7 @@ public class BulletBeh : MonoBehaviour
         }
         else
         {
-            rb.velocity = new Vector3( speed * (x / r),   speed * (y / r), 0);
+            rb.velocity = new Vector3((direction ? 1 : -1)* speed * (x / r), (direction ? 1 : -1)* speed * (y / r), 0);
         }
 
     }

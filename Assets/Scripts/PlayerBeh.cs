@@ -21,41 +21,45 @@ public class PlayerBeh : MonoBehaviour
     int fibon, fibon1, rr;
     int sizeEnemies;
     System.Random rand = new System.Random();
-
+    Queue<GameObject> enemies = new Queue<GameObject>();    
 
     void Start()
     {
-        sizeEnemies = 2;
         fibon = 1;
         fibon1=1;
 
         level = 1;
-        lives = 10;
+        lives = 15;
         text.text = "Level:    " + level + "     Lives: " + lives;
         // Controller mechanics parameters.
         
         angularVel = 1f;
         radialVel = 0;
         radialSpeed = 10f;
-        maxAngularVel = 20f;
+        maxAngularVel = 30f;
         radialAccel = 0.3f;
 
         // frecuency of shooting
-        waitForShoot = 30;
+        waitForShoot = 35;
         i = 0;// counter for wait
 
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
 
         block = false;
-        e= Instantiate(enemy2, new Vector3(radios[3],0,0),Quaternion.identity);
-        SetEnemy2(e, 7f,3f);
-        e = Instantiate(enemy1, new Vector3(radios[0], 0, 0), Quaternion.identity);
-        SetEnemy1(e, 7f, 3f);
-        //this.sizeEnemies = 2;
+        startEnemiesL1();
 
     }
-
+    void startEnemiesL1()
+    {
+        e = Instantiate(enemy2, new Vector3(radios[3], 0, 0), Quaternion.identity);
+        SetEnemy2(e, 7f, 3f);
+        enemies.Enqueue(e);
+        e = Instantiate(enemy1, new Vector3(radios[0], 0, 0), Quaternion.identity);
+        SetEnemy1(e, 7f, 3f);
+        enemies.Enqueue(e);
+        sizeEnemies = 2;
+    }
     void Update()
     {
         print(sizeEnemies);
@@ -69,7 +73,7 @@ public class PlayerBeh : MonoBehaviour
         y = t.position.y;
         r = Mathf.Sqrt(x * x + y * y);
 
-        if (r>24)// Player can't go out of the screen.
+        if (r>18)// Player can't go out of the screen.
             rb.velocity = new Vector3(angularVel * (y / r) + (radialVel>0?0:radialVel) * (x / r),
                 (radialVel > 0 ? 0 : radialVel) * (y / r) - angularVel * (x / r), 0);
         else
@@ -80,7 +84,9 @@ public class PlayerBeh : MonoBehaviour
             
             b = Instantiate(bullet, this.t.position + new Vector3(1f * (y / r)* (angularVel > 0 ? 1 : -1),
                 -1f* (angularVel > 0 ? 1 : -1) * (x / r), 0), Quaternion.identity);
-            SetBullet(b);
+            SetBullet(b, false);
+            b = Instantiate(bullet, this.t.position + new Vector3(1f * +2*(x / r), 1f+2*(y / r), 0), Quaternion.identity);
+            SetBullet(b, true);
             block = true;
             i = 0;
         }
@@ -99,16 +105,29 @@ public class PlayerBeh : MonoBehaviour
         {
             lives--;
             text.text = "Level:    " + level + "     Lives: " + lives;
+            if (lives==0)
+            {
+                print("lives: 0");
+                while (enemies.Count > 0)
+                {
+                    print(enemies.Count);
+                    Destroy(enemies.Dequeue());
+                }
+
+                lives = 15;
+                level = 1;
+                startEnemiesL1();
+            }
         }
     }
-    public void SetBullet(GameObject e)
+    public void SetBullet(GameObject b, bool isRadial)
     {
-        if (e != null)
+        if (b != null)
         {
-            var myScriptReference = e.GetComponent<BulletBeh>();
+            var myScriptReference = b.GetComponent<BulletBeh>();
             if (myScriptReference != null)
             {
-                myScriptReference.SetBullet(radialSpeed * 2.5f, angularVel > 0, false,false);
+                myScriptReference.SetBullet(radialSpeed *(isRadial?8f:3.3f), isRadial?true:(angularVel > 0), false,isRadial);
             }
         }
     }
@@ -126,17 +145,21 @@ public class PlayerBeh : MonoBehaviour
     }
     public void enemyDestroyed(GameObject e)
     {
-        print(sizeEnemies);
         this.sizeEnemies--;
-        print(sizeEnemies);
         if (sizeEnemies == 0)
         {
+            while (enemies.Count > 0)
+            {
+               enemies.Dequeue();
+            }
             level++;
+            text.text = "Level:    " + level + "     Lives: " + lives;
             for (int i=0; i<fibon;i++)
             {
                 rr = rand.Next(11);
                 e = Instantiate(enemy1, new Vector3(radios[rr], 0, 0), Quaternion.identity);
                 SetEnemy1(e, 7f+level, 3f+(level/6f));
+                enemies.Enqueue(e);
                 sizeEnemies++;
             }
             int aux;
@@ -153,6 +176,7 @@ public class PlayerBeh : MonoBehaviour
                 }
                 e = Instantiate(enemy2, new Vector3(radios[rr], 0, 0), Quaternion.identity);
                 SetEnemy2(e, 7f+level, 3f+(level / 6f));
+                enemies.Enqueue(e);
                 sizeEnemies++;
             }
         }
