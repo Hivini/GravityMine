@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
-
-    public GameObject block;
+    System.Random r = new System.Random();
+    public GameObject block, deadBlock, player;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,13 +15,27 @@ public class MazeGenerator : MonoBehaviour
         {
             for(int j = 0; j<boolMaze.GetLength(1); j++)
             {
-                if(boolMaze[i,j])
-                    Instantiate(block, new Vector3(i*0.5f-8, j*0.5f-6, 0), new Quaternion());
+                if (boolMaze[i, j])
+                {
+                    Instantiate((r.Next(100) < 85) ? block : deadBlock, new Vector3(i * 0.5f - 8, j * 0.5f - 6, 0), new Quaternion());
+                }
             }
         }
-        
-    }
+        player=Instantiate(player, new Vector3(-7.5f, 4.5f, 0),  Quaternion.identity);
+        SetPlayer(player,boolMaze);
 
+    }
+    public void SetPlayer(GameObject p, bool[,] maze)
+    {
+        if (p != null)
+        {
+            var myScriptReference = p.GetComponent<PlayerBehMiniGameB>();
+            if (myScriptReference != null)
+            {
+                myScriptReference.SetMaze(maze);
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
