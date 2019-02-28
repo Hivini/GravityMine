@@ -252,7 +252,6 @@ RectTransform:
 --- !u!114 &383910926
 =======
 --- !u!114 &383910926 stripped
->>>>>>> ed8d0b132c684faad7f90c5fa7b54469c470e5ef
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5226564864442114126, guid: fef3da14942a346c79f7f9f3b3e4522f,
     type: 3}
@@ -351,7 +350,6 @@ MonoBehaviour:
 =======
       m_Calls: []
     m_TypeName: Action, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
->>>>>>> ed8d0b132c684faad7f90c5fa7b54469c470e5ef
 --- !u!65 &637923373
 BoxCollider:
   m_ObjectHideFlags: 0

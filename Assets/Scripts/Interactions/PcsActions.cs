@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PcsActions : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public class PcsActions : MonoBehaviour
             case "hola":
                 Debug.Log("hola, como estas?");
                 break;
-            case "print\r":
+            case "print":
                 Debug.Log("Tu no me dices que imprimir");
+                break;
+            case "changeSceneA":
+                SceneManager.LoadScene("Final_Minigame_A");
                 break;
             default:
                 break;
