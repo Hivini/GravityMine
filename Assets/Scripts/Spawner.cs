@@ -10,18 +10,32 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i <= 10; i++)
+        int random;
+        System.Random r = new System.Random();
+        float tenDegRad = Mathf.PI * 1f / 18f; // deg to rad
+        //print(tenDegRad);
+        float radio = 1f/Mathf.Tan(tenDegRad); //cot 10°
+        float x, y, angleRad, angleDegreesRotation;
+
+        for (int z = 0; z <= 30; z++)
         {
-            for (int y = 0; y <= 10; y++)
+            for (int theta = 0; theta <= 18; theta++)
             {
-                int random = Random.Range(0, 3);
-                if (random == 2) 
+                angleDegreesRotation = theta * 2 * 10f;
+                angleRad = tenDegRad *(theta * 2 + 9);
+                x = radio * Mathf.Cos(angleRad);
+                y = radio * (1 + Mathf.Sin(angleRad));
+                if (!(z==0 && theta==0))
                 {
-                    Instantiate(normalGround, new Vector3((2 * i) + 1, 0, 2 * y + 1), new Quaternion(0, 0 ,0 ,1));
-                }
-                else if (random == 1)
-                {
-                    Instantiate(destructableCube, new Vector3(2 * i + 1, 0, 2 * y + 1), new Quaternion(0, 0, 0, 1));
+                    random = r.Next(3);
+                    if (random == 2)
+                    {
+                        Instantiate(normalGround, new Vector3(x,y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0,0,1)));
+                    }
+                    else if (random == 1)
+                    {
+                        Instantiate(destructableCube, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                    }
                 }
             }
         }
