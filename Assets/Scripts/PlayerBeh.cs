@@ -116,6 +116,8 @@ public class PlayerBeh : MonoBehaviour
 
                 lives = 15;
                 level = 1;
+                fibon = 1;
+                fibon1 = 1;
                 startEnemiesL1();
             }
         }
@@ -143,6 +145,7 @@ public class PlayerBeh : MonoBehaviour
             }
         }
     }
+
     public void enemyDestroyed(GameObject e)
     {
         this.sizeEnemies--;
