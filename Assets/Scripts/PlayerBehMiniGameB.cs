@@ -7,6 +7,8 @@ public class PlayerBehMiniGameB : MonoBehaviour
 {
     public float thickness;
     public GameObject exit;
+
+    private Text healthText;
     float speed, gForce;
     Rigidbody rb;
     Transform t;
@@ -21,6 +23,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        healthText = GameObject.Find("HealthText").GetComponent<Text>();
         t = this.GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         i= 0;
@@ -31,7 +34,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
         block = false;
         lives = 10;
         level = 1;
-        //text.text = "Level:    " + level + "     Lives: " + lives;
+        healthText.text = "Level:    " + level + "     Lives: " + lives;
     }
 
     // Update is called once per frame
@@ -87,7 +90,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
             {
                 level++;
                 lives++;
-                //text.text = "Level:    " + level + "     Lives: " + lives;
+                healthText.text = "Level:    " + level + "     Lives: " + lives;
                 while (exits.Count > 0)
                 {
                     Destroy(exits.Dequeue());
@@ -105,14 +108,14 @@ public class PlayerBehMiniGameB : MonoBehaviour
         else if (other.tag == "DeadWall")
         {
             lives--;
-            //text.text = "Level:    " + level + "     Lives: " + lives;
+            healthText.text = "Level:    " + level + "     Lives: " + lives;
             if (lives==0)
             {
                 t.position=new Vector3(-7.5f, 4.5f, 0);
                 level = 1;
                 lives = 10;
                 status = -1;
-                //text.text = "Level:    " + level + "     Lives: " + lives;
+                healthText.text = "Level:    " + level + "     Lives: " + lives;
                 while (exits.Count>0)
                 {
                     Destroy(exits.Dequeue());
@@ -152,6 +155,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
                 
             }
         }
+
         k = r.Next(freeTiles);
         ex=Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
         exits.Enqueue(ex);
