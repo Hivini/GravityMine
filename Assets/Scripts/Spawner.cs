@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
         Radio = 1f/Mathf.Tan(halfThetaRad); //cot (theta/2)°
         float x, y, angleRad, angleDegreesRotation;
 
-        for (int z = 0; z <= 100; z++)
+        for (int z = 0; z <= 100; z += 2)
         {
             for (int phi = 0; phi < numberOfTiles; phi++)
             {

@@ -18,8 +18,19 @@ public class PcsActions : MonoBehaviour
             case "changeSceneA":
                 SceneManager.LoadScene("Final_Minigame_A");
                 break;
+            case "changeSceneB":
+                SceneManager.LoadScene("Final_Minigame_B");
+                break;
+            case "changeSceneC":
+                SceneManager.LoadScene("Final_Minigame_C");
+                break;
             default:
                 break;
         }
+    }
+
+    public void ReturnToHome()
+    {
+        SceneManager.LoadScene("PresentationScene");
     }
 }

@@ -554,8 +554,11 @@ GameObject:
   m_Component:
   - component: {fileID: 279236933}
   - component: {fileID: 279236932}
+  - component: {fileID: 279236934}
+  - component: {fileID: 279236935}
+  - component: {fileID: 279236936}
   m_Layer: 0
-  m_Name: blackguy
+  m_Name: MinigameBChange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -623,6 +626,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &279236934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279236931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77700c9624d52f949ac3091163dd33cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: {fileID: 1569782331}
+  textAsset: {fileID: 4900000, guid: a36bbfbc091034353a7de3b5ae9e66cd, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 66e96548d006a482e93730e79e82b5b7, type: 3}
+  - {fileID: 21300000, guid: 4fd33fb75a69f48508e4f769919a2ef3, type: 3}
+  textBox: {fileID: 1093837252}
+  image: {fileID: 1129960760}
+  onActionFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 279236935}
+        m_MethodName: start
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Action, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &279236935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279236931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6d6bdf40ca259498584f23f430bfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &279236936
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279236931}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5600007, y: 2.56, z: 4.0406446}
+  m_Center: {x: -1.1322832e-15, y: 0, z: -1.9203222}
 --- !u!1 &373258693
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &373258694
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1237,7 +1299,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1201207616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d93cc2b8668c4544a8b1f03f7c2858d, type: 3}
+  m_Script: {fileID: 11500000, guid: 79ca051e104734159b0c0b62ef49cc6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 278534185}
@@ -1282,8 +1344,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1379479345}
   - component: {fileID: 1379479344}
+  - component: {fileID: 1379479346}
+  - component: {fileID: 1379479348}
+  - component: {fileID: 1379479347}
   m_Layer: 0
-  m_Name: girl_2
+  m_Name: MinigameCChange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1351,6 +1416,65 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!114 &1379479346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379479343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6d6bdf40ca259498584f23f430bfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1379479347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379479343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77700c9624d52f949ac3091163dd33cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: {fileID: 1569782331}
+  textAsset: {fileID: 4900000, guid: dffc1a3fc1cf6480c82c0c570ae87b9f, type: 3}
+  sprites:
+  - {fileID: 21300000, guid: 7a37eab4411314e39a60ed60ab8660fa, type: 3}
+  - {fileID: 21300000, guid: 4fd33fb75a69f48508e4f769919a2ef3, type: 3}
+  textBox: {fileID: 1093837252}
+  image: {fileID: 1129960760}
+  onActionFound:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1379479346}
+        m_MethodName: start
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: Action, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!65 &1379479348
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379479343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.5600007, y: 2.56, z: 3.9305162}
+  m_Center: {x: -1.9147857e-15, y: 0, z: -1.8652585}
 --- !u!1 &1553603936
 GameObject:
   m_ObjectHideFlags: 0

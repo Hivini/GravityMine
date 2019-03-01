@@ -1,4 +1,5 @@
 1-Hi, do you want to play a game?
 2-What kind of game?
 1-Just follow me
-2-Ok...-changeSceneA
+2-Ok...
+2--changeSceneA
