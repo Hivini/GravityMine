@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float jumpForce;
-    public float speed;
-    public float speedRadial=1;
+    public float jumpForce=200;
+    public float speed=5;
+    public float speedRadial=3;
 
     private bool lastJ;
     private Rigidbody rigidbody;
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             // Reset the velocity to not affect the force
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
+            //rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
             rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(AngleRad), -Mathf.Sin(AngleRad), 0)));
         }
     }

@@ -6,25 +6,30 @@ public class Spawner : MonoBehaviour
 {
     public GameObject destructableCube;
     public GameObject normalGround;
-    float numberOfTiles = 18;
+    int numberOfTiles = 25;
+    float radio;
+
+    public float Radio { get => radio; set => radio = value; }
+
     // Start is called before the first frame update
     void Start()
     {
         int random;
         System.Random r = new System.Random();
-        float halfThetaRad = Mathf.PI /(numberOfTiles); // deg to rad
+        float halfThetaRad = Mathf.PI /(numberOfTiles); // rad
+        float halfThetaDeg = (180f * halfThetaRad / Mathf.PI);
         //print(tenDegRad);
-        float radio = 1f/Mathf.Tan(halfThetaRad); //cot (theta/2)°
+        Radio = 1f/Mathf.Tan(halfThetaRad); //cot (theta/2)°
         float x, y, angleRad, angleDegreesRotation;
 
         for (int z = 0; z <= 100; z++)
         {
-            for (int phi = 0; phi <= numberOfTiles; phi++)
+            for (int phi = 0; phi < numberOfTiles; phi++)
             {
-                angleDegreesRotation = phi * 2f * (180f*halfThetaRad/Mathf.PI);
-                angleRad = halfThetaRad * (phi * 2f + 9f);
-                x = radio * Mathf.Cos(angleRad);
-                y = radio * (1 + Mathf.Sin(angleRad));
+                angleDegreesRotation = 90f+phi * 360f / (0.0f+numberOfTiles);
+                angleRad = phi * 2f*Mathf.PI / (0.0f + numberOfTiles);
+                x = Radio * Mathf.Cos(angleRad);
+                y = Radio * (1 + Mathf.Sin(angleRad));
                 if (!(z==0 && phi == 0))
                 {
                     

@@ -30,7 +30,7 @@ public class CameraFollow : MonoBehaviour
     Transform tt;
     GameObject target;
     public float smoothing = 5f;
-    public float zDistance = 5f;
+    public float zDistance = 6f;
     public float rDistance = 5f;
     float angleRad;
     Vector3 v;
@@ -50,8 +50,8 @@ public class CameraFollow : MonoBehaviour
         v = new Vector3(rDistance * Mathf.Cos(angleRad), rDistance * Mathf.Sin(angleRad), zDistance);
         Vector3 targetCamPos = tt.position - v;
         transform.position = targetCamPos;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.AngleAxis(90f + (angleRad * 180f / Mathf.PI), new Vector3(0,0,1)), 0.8f);
-        transform.Rotate(15f,0,0);
+        transform.rotation =  Quaternion.AngleAxis(90f + (angleRad * 180f / Mathf.PI), new Vector3(0,0,1));
+        transform.Rotate(30f,0,0);
     }
 
     public float GetAngleRad(GameObject p)

@@ -297,16 +297,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1264750556, guid: 16643e706fcaeeb489d78972ce5356c4, type: 3}
       propertyPath: jumpForce
-      value: 125
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264750556, guid: 16643e706fcaeeb489d78972ce5356c4, type: 3}
+      propertyPath: speedRadial
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16643e706fcaeeb489d78972ce5356c4, type: 3}
---- !u!4 &1375871566 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1777891447103650308, guid: 16643e706fcaeeb489d78972ce5356c4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1358225897}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2093521144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -407,8 +405,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d93cc2b8668c4544a8b1f03f7c2858d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1375871566}
   smoothing: 5
+  zDistance: 5
+  rDistance: 5
 --- !u!81 &2145735107
 AudioListener:
   m_ObjectHideFlags: 0
