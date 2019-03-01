@@ -12,13 +12,15 @@ public class Player : MonoBehaviour
     private Rigidbody rigidbody;
     float angleRad, angleDeg;
 
+    public float AngleRad { get => angleRad; set => angleRad = value; }
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         lastJ = false;
         angleDeg = -90f;
-        angleRad = (Mathf.PI / 180f) * angleDeg;
+        AngleRad = (Mathf.PI / 180f) * angleDeg;
     }
 
     // Update is called once per frame
@@ -26,11 +28,11 @@ public class Player : MonoBehaviour
     {
         float changeOfangle = Input.GetAxis("Horizontal");
         angleDeg += speedRadial*changeOfangle;
-        angleRad = (Mathf.PI / 180f) * angleDeg;
+        AngleRad = (Mathf.PI / 180f) * angleDeg;
         float z = Input.GetAxis("Vertical");
 
         rigidbody.velocity =new Vector3(rigidbody.velocity.x, rigidbody.velocity.y, speed * z);
-        rigidbody.AddForce(9.8f*(new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0)), ForceMode.Acceleration);
+        rigidbody.AddForce(9.8f*(new Vector3(Mathf.Cos(AngleRad), Mathf.Sin(AngleRad), 0)), ForceMode.Acceleration);
         //transform.Translate(new Vector3(x * Time.deltaTime * speed, transform.position.y, z * Time.deltaTime * speed));
     }
 
@@ -40,7 +42,7 @@ public class Player : MonoBehaviour
         {
             // Reset the velocity to not affect the force
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
-            rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(angleRad), -Mathf.Sin(angleRad), 0)));
+            rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(AngleRad), -Mathf.Sin(AngleRad), 0)));
         }
     }
 
