@@ -6,7 +6,8 @@ public class Spawner : MonoBehaviour
 {
     public GameObject destructableCube;
     public GameObject normalGround;
-    int numberOfTiles = 25;
+    public GameObject tubeReference;
+    readonly int numberOfTiles = 25;
     float radio;
 
     public float Radio { get => radio; set => radio = value; }
@@ -36,11 +37,13 @@ public class Spawner : MonoBehaviour
                     random = r.Next(100);
                     if (random <30)
                     {
-                        Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                        var platform = Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                        platform.transform.parent = tubeReference.transform;
                     }
                     else if (random>80)
                     {
-                        Instantiate(destructableCube, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                        var platform = Instantiate(destructableCube, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                        platform.transform.parent = tubeReference.transform;
                     }
                     //Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
                 }
