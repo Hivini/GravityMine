@@ -193,7 +193,7 @@ GameObject:
   m_Layer: 0
   m_Name: TubeReference
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -525,7 +525,7 @@ PrefabInstance:
       objectReference: {fileID: 1029858268}
     - target: {fileID: 1264750556, guid: 16643e706fcaeeb489d78972ce5356c4, type: 3}
       propertyPath: rotationSpeed
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16643e706fcaeeb489d78972ce5356c4, type: 3}
@@ -799,10 +799,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145735105}
-  m_LocalRotation: {x: 0.22385687, y: -0, z: -0, w: 0.9746221}
-  m_LocalPosition: {x: 0, y: 4.4700003, z: -4.35}
+  m_LocalRotation: {x: 0.2973273, y: -0, z: -0, w: 0.9547757}
+  m_LocalPosition: {x: 0, y: 5.49, z: -5.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 25.871, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.594, y: 0, z: 0}

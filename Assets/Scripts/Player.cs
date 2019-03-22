@@ -46,16 +46,21 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            // Reset the velocity to not affect the force
-            // TODO Fix some jump bugs that are present
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
             rigidbody.AddForce(0, jumpForce, 0);
+            // Reset the velocity to not affect the force
+            // TODO Fix some jump bugs that are present
+            if (!lastJ)
+            {
+
+            }
             //rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(AngleRad), -Mathf.Sin(AngleRad), 0)));
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
+        lastJ = true;
         if (collision.gameObject.tag == "DestructablePlatform")
         {
             Destroy(collision.gameObject);
