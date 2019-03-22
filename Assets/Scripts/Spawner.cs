@@ -32,7 +32,7 @@ public class Spawner : MonoBehaviour
                 y = Radio * (1 + Mathf.Sin(angleRad));
                 if (!(z==0 && phi == 0))
                 {
-                    
+                    /*
                     random = r.Next(100);
                     if (random <30)
                     {
@@ -41,8 +41,14 @@ public class Spawner : MonoBehaviour
                     else if (random>80)
                     {
                         Instantiate(destructableCube, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
-                    }
-                    //Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                    }*/
+                    /*
+                    if (((z%numberOfTiles+phi)%numberOfTiles)>15 && ((z % numberOfTiles + phi) % numberOfTiles) <20)
+                    {
+                        Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+                    }*/
+                    Instantiate(normalGround, new Vector3(x, y, z), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
+
                 }
             }
         }
