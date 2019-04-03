@@ -8,12 +8,17 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public LayerMask groundLayer;
     public Transform groundCheck;
+    public GameObject pauseMenu;
+    public Camera camera;
 
+    private GameObject pauseMenuInstance;
     private Rigidbody rigidbody;
     private Animator animator;
     private Collider[] groundCollisions;
     private bool grounded;
     private bool facingRight;
+    private bool openPauseMenu;
+    private bool lastPressed;
 
     private const float groundCheckRadius = 0.2f;
 
@@ -25,12 +30,49 @@ public class PlayerController : MonoBehaviour
         // The player will always start facing right
         facingRight = true;
         grounded = false;
-        
+        lastPressed = false;
+        openPauseMenu = false;
+        if (GameControl.control.hasPos)
+        {
+            Vector3 pos = new Vector3(GameControl.control.playerX,
+                                        GameControl.control.playerY,
+                                         GameControl.control.playerZ);
+            Vector3 cameraPos =
+                        new Vector3(camera.gameObject.transform.position.x,
+                                    camera.gameObject.transform.position.y,
+                                    pos.z);
+            // Update both positions
+            gameObject.transform.position = pos;
+            camera.gameObject.transform.position = cameraPos;
+        }
+
+        StartCoroutine(UpdatePosition());
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Pause menu
+        if (Input.GetButton("Pause"))
+        {
+            if (!lastPressed && !openPauseMenu)
+            {
+                pauseMenuInstance = Instantiate(pauseMenu);
+                openPauseMenu = true;
+                lastPressed = true;
+            }
+            else if (!lastPressed && openPauseMenu)
+            {
+                Destroy(pauseMenuInstance.gameObject);
+                openPauseMenu = false;
+                lastPressed = true;
+            }
+        }
+        else
+        {
+            lastPressed = false;
+        }
+
         // TODO Maybe change this to Fixed Update ?
         // Draw a tiny sphere and check what is colliding
         groundCollisions = Physics.OverlapSphere(groundCheck.position, groundCheckRadius, groundLayer);
@@ -65,11 +107,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-
-    }
-
     private void Flip()
     {
         // Just invert the value
@@ -78,5 +115,26 @@ public class PlayerController : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.z *= -1;
         transform.localScale = scale;
+    }
+
+    IEnumerator UpdatePosition()
+    {
+        // FIXME
+        // We can maybe change this and when the player hits saves the
+        // gamecontroller will lookup for the object by layer or tag
+        while (true)
+        {
+            GameControl.control.playerX = transform.position.x;
+            GameControl.control.playerY = transform.position.y;
+            GameControl.control.playerZ = transform.position.z;
+            yield return new WaitForSeconds(1);
+        }
+
+    }
+
+
+    public void ClickTest()
+    {
+        GameControl.control.Save();
     }
 }

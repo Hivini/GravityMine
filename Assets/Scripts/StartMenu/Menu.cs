@@ -73,7 +73,7 @@ public class Menu : MonoBehaviour
 
     void continueGame()
     {
-        // TODO: Load data and change to the first scene
+        GameControl.control.Load();
         SceneManager.LoadScene("PresentationScene");
     }
 
