@@ -13,17 +13,22 @@ public class Player : MonoBehaviour
 
     private bool lastJ;
     private Rigidbody rigidbody;
+    private bool destroying;
     float angleRad, angleDeg;
+    public int zPos;
+    public Spawner spawner;
 
     public float AngleRad { get => angleRad; set => angleRad = value; }
 
     // Start is called before the first frame update
     void Start()
     {
+        zPos = 0;
         rigidbody = GetComponent<Rigidbody>();
         lastJ = false;
         angleDeg = -90f;
         AngleRad = (Mathf.PI / 180f) * angleDeg;
+        destroying = false;
     }
 
     // Update is called once per frame
@@ -40,6 +45,14 @@ public class Player : MonoBehaviour
         tubeReference.transform.Rotate(0, 0, changeOfangle * Time.deltaTime * rotationSpeed, Space.World);
         //tubeReference.transform.rotation = new Quaternion(0, 0, tubeReference.transform.rotation.z - changeOfangle, 1);
         //transform.Translate(new Vector3(x * Time.deltaTime * speed, transform.position.y, z * Time.deltaTime * speed));
+        zPos = (int)transform.position.z;
+        if (zPos%100 >= 50 && !destroying)
+        {
+            destroying = true;
+            spawner.destroyPast();
+            spawner.spawn();
+        }
+        destroying = !(zPos % 100 < 50) && destroying;
     }
 
     private void OnCollisionEnter(Collision collision)
