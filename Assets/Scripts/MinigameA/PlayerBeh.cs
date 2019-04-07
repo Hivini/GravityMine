@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBeh : MonoBehaviour
@@ -21,7 +22,11 @@ public class PlayerBeh : MonoBehaviour
     int fibon, fibon1, rr;
     int sizeEnemies;
     System.Random rand = new System.Random();
-    Queue<GameObject> enemies = new Queue<GameObject>();    
+    Queue<GameObject> enemies = new Queue<GameObject>();
+    private bool ended = false;
+    public GameObject startGameInstructions;
+    public GameObject endGameInstructions;
+    public Text bestScore;
 
     void Start()
     {
@@ -49,6 +54,9 @@ public class PlayerBeh : MonoBehaviour
         block = false;
         startEnemiesL1();
 
+        Time.timeScale = 0;
+        endGameInstructions.SetActive(false);
+        bestScore.text = "Current best score is: \nLevel " + PlayerPrefs.GetInt("gameA").ToString();
     }
     void startEnemiesL1()
     {
@@ -62,7 +70,6 @@ public class PlayerBeh : MonoBehaviour
     }
     void Update()
     {
-        print(sizeEnemies);
         w = Input.GetAxis("Horizontal");
         vr = Input.GetAxis("Vertical");
         radialVel = radialSpeed * vr;
@@ -97,6 +104,34 @@ public class PlayerBeh : MonoBehaviour
             block = false;
         }
 
+        // Unpauses game
+        if (Time.timeScale==0 && Input.GetMouseButton(0) && !ended)
+        {
+            bestScore.text = "";
+            Time.timeScale = 1;
+            startGameInstructions.SetActive(false);
+        }
+        else if (Time.timeScale == 0 && Input.GetMouseButton(0) && ended)
+        {
+            fibon = 1;
+            fibon1 = 1;
+
+            level = 1;
+            lives = 15;
+            while (enemies.Count > 0)
+            {
+                Destroy(enemies.Dequeue());
+            }
+
+            startEnemiesL1();
+            endGameInstructions.SetActive(false);
+            bestScore.text = "";
+            text.text = "Level:    " + level + "     Lives: " + lives;
+            Time.timeScale = 1;
+
+
+        }
+
     }
     public void OnCollisionEnter(Collision collision)
     {
@@ -107,18 +142,17 @@ public class PlayerBeh : MonoBehaviour
             text.text = "Level:    " + level + "     Lives: " + lives;
             if (lives==0)
             {
-                print("lives: 0");
-                while (enemies.Count > 0)
+                // TODO: save level
+                Time.timeScale = 0;
+                ended = true;
+                if (PlayerPrefs.GetInt("gameA", -1) < level - 1)
                 {
-                    print(enemies.Count);
-                    Destroy(enemies.Dequeue());
+                    PlayerPrefs.SetInt("gameA", level - 1);
                 }
+                bestScore.text = "Current best score is: \nLevel " + PlayerPrefs.GetInt("gameA");
+                endGameInstructions.SetActive(true);
+                //SceneManager.LoadScene("PresentationScene");
 
-                lives = 15;
-                level = 1;
-                fibon = 1;
-                fibon1 = 1;
-                startEnemiesL1();
             }
         }
     }
