@@ -30,8 +30,7 @@ public class Spawner : MonoBehaviour
 
     public void spawn()
     {
-        int random;
-        System.Random r = new System.Random();
+        float random;
         float halfThetaRad = Mathf.PI / (numberOfTiles); // rad
         float halfThetaDeg = (180f * halfThetaRad / Mathf.PI);
         //print(tenDegRad);
@@ -49,14 +48,14 @@ public class Spawner : MonoBehaviour
                 if (!(z == 0 && phi == 0))
                 {
 
-                    random = r.Next(100);
-                    if (random < 30)
+                    random = Random.value*100;
+                    if (random < 25.0f - (startSpawn/100.0f))
                     {
                         GameObject platform = Instantiate(normalGround, new Vector3(x, y, z + startSpawn), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
                         platform.transform.parent = tubeReference.transform;
                         tiles.Enqueue(platform);
                     }
-                    else if (random > 80)
+                    else if (random > 70.0f + (startSpawn / 200.0f))
                     {
                         GameObject platform = Instantiate(destructableCube, new Vector3(x, y, z + startSpawn), Quaternion.AngleAxis(angleDegreesRotation, new Vector3(0, 0, 1)));
                         platform.transform.parent = tubeReference.transform;
@@ -69,10 +68,24 @@ public class Spawner : MonoBehaviour
         startSpawn += 100;
     }
 
+    public void spawn(int startValue)
+    {
+        startSpawn = startValue;
+        spawn();
+    }
+
     public void destroyPast()
     {
         int halfPath = tiles.Count / 2;
         for(int i = 0; i< halfPath; i++)
+        {
+            Destroy(tiles.Dequeue());
+        }
+    }
+
+    public void destroyAll()
+    {
+        while (tiles.Count > 0)
         {
             Destroy(tiles.Dequeue());
         }
