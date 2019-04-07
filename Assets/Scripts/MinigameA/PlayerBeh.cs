@@ -148,6 +148,7 @@ public class PlayerBeh : MonoBehaviour
                 if (PlayerPrefs.GetInt("gameA", -1) < level - 1)
                 {
                     PlayerPrefs.SetInt("gameA", level - 1);
+                    PlayerPrefs.Save();
                 }
                 bestScore.text = "Current best score is: \nLevel " + PlayerPrefs.GetInt("gameA");
                 endGameInstructions.SetActive(true);
