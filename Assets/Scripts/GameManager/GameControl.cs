@@ -12,7 +12,7 @@ public class GameControl : MonoBehaviour
     public float playerY;
     public float playerZ;
     public bool hasPos;
-    public int scene; // <--- TODO Later implementation to know in which level is
+    public int scene; // <--- TODO Later implementation to know in which pointsToCollect is
 
     // Start is called before the first frame update
     void Awake()

@@ -142,7 +142,6 @@ public class PlayerBeh : MonoBehaviour
             text.text = "Level:    " + level + "     Lives: " + lives;
             if (lives==0)
             {
-                // TODO: save level
                 Time.timeScale = 0;
                 ended = true;
                 if (PlayerPrefs.GetInt("gameA", -1) < level - 1)

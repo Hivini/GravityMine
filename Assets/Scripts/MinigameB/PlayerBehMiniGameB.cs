@@ -12,7 +12,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
     float speed, gForce;
     Rigidbody rb;
     Transform t;
-    int status, i, lives, level, freeTiles, k, exitsLiving;
+    int status, i, lives, pointsToCollect, freeTiles, k, exitsLiving, currentPoints;
     bool block;
     bool[,] maze;
     int[,] freeCoordinates;
@@ -20,10 +20,19 @@ public class PlayerBehMiniGameB : MonoBehaviour
     System.Random r = new System.Random();
     Queue<GameObject> exits = new Queue<GameObject>();
     GameObject ex;
+    bool ended;
+    GameObject startGameInstructions;
+    GameObject endGameInstructions;
+    GameObject panel;
+    Text bestScore;
     // Start is called before the first frame update
     void Start()
     {
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
+        startGameInstructions = GameObject.Find("startInstructions");
+        endGameInstructions = GameObject.Find("endGameInstructions");
+        panel = GameObject.Find("Panel");
+        bestScore = GameObject.Find("bestScore").GetComponent<Text>();
         t = this.GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         i= 0;
@@ -33,52 +42,90 @@ public class PlayerBehMiniGameB : MonoBehaviour
         gForce = 2.5f;
         block = false;
         lives = 10;
-        level = 1;
-        healthText.text = "Level:    " + level + "     Lives: " + lives;
+        pointsToCollect = exitsLiving = 3;
+        currentPoints = 0;
+        healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
+        ended = false;
+        endGameInstructions.SetActive(false);
+        bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameB",0).ToString() + " Boxes";
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        int h = (int)Input.GetAxisRaw("Horizontal");
-        int v = (int)Input.GetAxisRaw("Vertical");
-        if (!block)
+        if (!ended && Time.timeScale!=0)
         {
-            if (h != 0)
+            int h = (int)Input.GetAxisRaw("Horizontal");
+            int v = (int)Input.GetAxisRaw("Vertical");
+            if (!block)
             {
-                status = 2 - h;
-            }
-            else
-            {
-                if (v != 0)
+                if (h != 0)
                 {
-                    status = 1 + v;
+                    status = 2 - h;
                 }
-            }
-            block=true;
-            i= 0;
-        }
-        
-        if (status!=-1)
-        {
-            bool sign = (status ==1 || status == 2);
-            bool isVertical = (status % 2 == 0);
-            if (h!=0)
-            {
-                
-                rb.velocity = new Vector3(
-                        (isVertical ? 0 : (speed * (sign ? 1 : -1)) ),
-                        (isVertical ? (speed * (sign ? 1 : -1)) : 0 ), 0) ;
+                else
+                {
+                    if (v != 0)
+                    {
+                        status = 1 + v;
+                    }
+                }
+                block = true;
+                i = 0;
             }
 
-            rb.AddForce((isVertical ? 0: (gForce* (sign ? 1 : -1)) ),(isVertical? (gForce * (sign ? 1 : -1)) : 0 ),0,ForceMode.Acceleration);
+            if (status != -1)
+            {
+                bool sign = (status == 1 || status == 2);
+                bool isVertical = (status % 2 == 0);
+                if (h != 0)
+                {
+
+                    rb.velocity = new Vector3(
+                            (isVertical ? 0 : (speed * (sign ? 1 : -1))),
+                            (isVertical ? (speed * (sign ? 1 : -1)) : 0), 0);
+                }
+
+                rb.AddForce((isVertical ? 0 : (gForce * (sign ? 1 : -1))), (isVertical ? (gForce * (sign ? 1 : -1)) : 0), 0, ForceMode.Acceleration);
+            }
+            if (i == 10)
+            {
+                block = false;
+                i = 0;
+            }
+            i++;
         }
-        if (i==10)
+        else if (Input.GetMouseButton(0) && ended)
         {
-            block = false;
-            i= 0;
+            ended = false;
+            pointsToCollect = 3;
+            lives = 10;
+            status = -1;
+            while (exits.Count > 0)
+            {
+                Destroy(exits.Dequeue());
+            }
+            for (int q = 0; q < pointsToCollect; q++)
+            {
+                k = r.Next(freeTiles);
+                ex = Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
+                exits.Enqueue(ex);
+            }
+            exitsLiving = pointsToCollect;
+            Time.timeScale = 1;
+            endGameInstructions.SetActive(false);
+            panel.SetActive(false);
+            bestScore.text = "";
         }
-        i++;
+        else if (Input.GetMouseButton(0))
+        {
+            print("Clicked");
+            bestScore.text = "";
+            Time.timeScale = 1;
+            startGameInstructions.SetActive(false);
+            panel.SetActive(false);
+        }
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -86,53 +133,52 @@ public class PlayerBehMiniGameB : MonoBehaviour
         {
             exitsLiving--;
             Destroy(other.gameObject);
+            currentPoints++;
             if (exitsLiving<=0)
             {
-                level++;
-                lives++;
-                healthText.text = "Level:    " + level + "     Lives: " + lives;
+                lives += pointsToCollect;
+                pointsToCollect = (int)(Random.value*4)+1;
                 while (exits.Count > 0)
                 {
                     Destroy(exits.Dequeue());
                 }
-                for (int q = 0; q < level; q++)
+                for (int q = 0; q < pointsToCollect; q++)
                 {
                     k = r.Next(freeTiles);
                     ex = Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
                     exits.Enqueue(ex);
                 }
-                exitsLiving = level;
+                exitsLiving = pointsToCollect;
             }
 
         }
-        else if (other.tag == "DeadWall")
+        else if (other.tag == "DeadWall" )
         {
             lives--;
-            healthText.text = "Level:    " + level + "     Lives: " + lives;
             if (lives==0)
             {
+                Time.timeScale = 0;
+
                 t.position=new Vector3(-7.5f, 4.5f, 0);
-                level = 1;
-                lives = 10;
-                status = -1;
-                healthText.text = "Level:    " + level + "     Lives: " + lives;
-                while (exits.Count>0)
+
+                
+                ended = true;
+                if (PlayerPrefs.GetInt("gameB", -1) < currentPoints)
                 {
-                    Destroy(exits.Dequeue());
+                    PlayerPrefs.SetInt("gameB", currentPoints);
+                    PlayerPrefs.Save();
                 }
-                for(int q=0;q<level ;q++)
-                {
-                    k = r.Next(freeTiles);
-                    ex = Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
-                    exits.Enqueue(ex);
-                }
-                exitsLiving = level;
+                bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameB", 0).ToString() + " Boxes";
+                endGameInstructions.SetActive(true);
+                panel.SetActive(true);
+                currentPoints = 0;
             }
         }
+        healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
     }
+
     public void SetMaze(bool[,] maze)
     {
-        print("tHIS WAS CALLED");
         freeTiles = 0;
         this.maze = maze;
         for (int i=0;i< maze.GetLength(0); i++){
@@ -156,9 +202,13 @@ public class PlayerBehMiniGameB : MonoBehaviour
             }
         }
 
-        k = r.Next(freeTiles);
-        ex=Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
-        exits.Enqueue(ex);
+        for (int q = 0; q < 3; q++)
+        {
+            k = r.Next(freeTiles);
+            ex = Instantiate(exit, new Vector3(freeCoordinates[k, 0] * 0.5f - 8, freeCoordinates[k, 1] * 0.5f - 6, 0), Quaternion.identity);
+            exits.Enqueue(ex);
+        }
+        exitsLiving = pointsToCollect;
 
     }
 }

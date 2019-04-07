@@ -17,7 +17,7 @@ namespace UnityChan
 	public class SpringManager : MonoBehaviour
 	{
 		//Kobayashi
-		// DynamicRatio is paramater for activated level of dynamic animation 
+		// DynamicRatio is paramater for activated pointsToCollect of dynamic animation 
 		public float dynamicRatio = 1.0f;
 
 		//Ebata
