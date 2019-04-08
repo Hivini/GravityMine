@@ -11,6 +11,8 @@ public class GameControl : MonoBehaviour
     public float playerX;
     public float playerY;
     public float playerZ;
+    public Dictionary<string, bool> passedLevels;
+    public Dictionary<string, int> levelsScores;
     public bool hasPos;
     public int scene; // <--- TODO Later implementation to know in which pointsToCollect is
 
@@ -18,6 +20,18 @@ public class GameControl : MonoBehaviour
     void Awake()
     {
         hasPos = false;
+        passedLevels = new Dictionary<string, bool>();
+        levelsScores = new Dictionary<string, int>();
+
+        // Dictionary of levels
+        passedLevels.Add("Final_Minigame_A", false);
+        passedLevels.Add("Final_Minigame_B", false);
+        passedLevels.Add("Final_Minigame_C", false);
+
+        levelsScores.Add("Final_Minigame_A", 0);
+        levelsScores.Add("Final_Minigame_B", 0);
+        levelsScores.Add("Final_Minigame_C", 0);
+
         if (control == null)
         {
             // Kinda like a singleton pattern
@@ -41,16 +55,15 @@ public class GameControl : MonoBehaviour
         {
             playerBX = playerX,
             playerBY = playerY,
-            playerBZ = playerZ
+            playerBZ = playerZ,
+            passedLevels = passedLevels,
+            levelsScores = levelsScores
         };
 
         bf.Serialize(file, data);
         file.Close();
 
         Debug.Log("Saved succesfully");
-        Debug.Log(data.playerBX);
-        Debug.Log(data.playerBY);
-        Debug.Log(data.playerBZ);
     }
 
 
@@ -58,6 +71,7 @@ public class GameControl : MonoBehaviour
     {
         if (File.Exists(Application.persistentDataPath + "/playerInfo.dat"))
         {
+            Debug.Log(Application.persistentDataPath + "/playerInfo.dat");
             BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Open(Application.persistentDataPath + "/playerInfo.dat", FileMode.Open);
             // Create the class again with the data using casting
@@ -67,11 +81,23 @@ public class GameControl : MonoBehaviour
             playerX = data.playerBX;
             playerY = data.playerBY;
             playerZ = data.playerBZ;
+            passedLevels = data.passedLevels;
             hasPos = true;
             Debug.Log("Loaded succesfully");
-            Debug.Log(playerX);
-            Debug.Log(playerY);
-            Debug.Log(playerZ);
+        }
+    }
+
+
+    public void FinishMinigame(string sceneName, int score)
+    {
+        if (levelsScores[sceneName] < score)
+        {
+            levelsScores[sceneName] = score;
+        }
+
+        if (!passedLevels[sceneName])
+        {
+            passedLevels[sceneName] = true;
         }
     }
 }
@@ -82,4 +108,6 @@ class PlayerData
     public float playerBX;
     public float playerBY;
     public float playerBZ;
+    public Dictionary<string, bool> passedLevels;
+    public Dictionary<string, int> levelsScores;
 }

@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PcsActions : MonoBehaviour
 {
+    public Text helpText;
+
     public void start(string option)
     {
         switch (option)
@@ -19,14 +22,35 @@ public class PcsActions : MonoBehaviour
                 SceneManager.LoadScene("Final_Minigame_A");
                 break;
             case "changeSceneB":
-                SceneManager.LoadScene("Final_Minigame_B");
+                if (GameControl.control.passedLevels["Final_Minigame_A"])
+                    SceneManager.LoadScene("Final_Minigame_B");
+                else
+                {
+                    helpText.text = "You must complete game A";
+                    StartCoroutine(ReturnHelpText());
+                }
+
                 break;
             case "changeSceneC":
-                SceneManager.LoadScene("Final_Minigame_C");
+                if (GameControl.control.passedLevels["Final_Minigame_A"] &&
+                    GameControl.control.passedLevels["Final_Minigame_B"])
+                    SceneManager.LoadScene("Final_Minigame_C");
+                else
+                {
+                    helpText.text = "You must complete game A and B";
+                    StartCoroutine(ReturnHelpText());
+                }
+
                 break;
             default:
                 break;
         }
+    }
+
+    IEnumerator ReturnHelpText()
+    {
+        yield return new WaitForSeconds(3);
+        helpText.text = "";
     }
 
     public void ReturnToHome()

@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
             camera.gameObject.transform.position = cameraPos;
         }
 
-        StartCoroutine(UpdatePosition());
+        StartCoroutine(UpdatePos());
     }
 
     // Update is called once per frame
@@ -57,6 +57,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!lastPressed && !openPauseMenu)
             {
+                GameControl.control.playerX = transform.position.x;
+                GameControl.control.playerY = transform.position.y;
+                GameControl.control.playerZ = transform.position.z;
                 pauseMenuInstance = Instantiate(pauseMenu);
                 openPauseMenu = true;
                 lastPressed = true;
@@ -107,6 +110,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    IEnumerator UpdatePos()
+    {
+        while (true)
+        {
+            GameControl.control.playerX = transform.position.x;
+            GameControl.control.playerY = transform.position.y;
+            GameControl.control.playerZ = transform.position.z;
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     private void Flip()
     {
         // Just invert the value
@@ -116,22 +130,6 @@ public class PlayerController : MonoBehaviour
         scale.z *= -1;
         transform.localScale = scale;
     }
-
-    IEnumerator UpdatePosition()
-    {
-        // FIXME
-        // We can maybe change this and when the player hits saves the
-        // gamecontroller will lookup for the object by layer or tag
-        while (true)
-        {
-            GameControl.control.playerX = transform.position.x;
-            GameControl.control.playerY = transform.position.y;
-            GameControl.control.playerZ = transform.position.z;
-            yield return new WaitForSeconds(1);
-        }
-
-    }
-
 
     public void ClickTest()
     {

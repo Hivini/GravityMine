@@ -34,7 +34,7 @@ public class PlayerBeh : MonoBehaviour
         fibon1=1;
 
         level = 1;
-        lives = 15;
+        lives = 5;
         text.text = "Level:    " + level + "     Lives: " + lives;
         // Controller mechanics parameters.
         
@@ -117,7 +117,7 @@ public class PlayerBeh : MonoBehaviour
             fibon1 = 1;
 
             level = 1;
-            lives = 15;
+            lives = 5;
             while (enemies.Count > 0)
             {
                 Destroy(enemies.Dequeue());
@@ -144,12 +144,13 @@ public class PlayerBeh : MonoBehaviour
             {
                 Time.timeScale = 0;
                 ended = true;
-                if (PlayerPrefs.GetInt("gameA", -1) < level - 1)
-                {
-                    PlayerPrefs.SetInt("gameA", level - 1);
-                    PlayerPrefs.Save();
-                }
-                bestScore.text = "Current best score is: \nLevel " + PlayerPrefs.GetInt("gameA");
+                string sceneName = SceneManager.GetActiveScene().name;
+                GameControl.control.FinishMinigame(sceneName, level);
+                GameControl.control.Save();
+                bestScore.text = "Current best score is: \nLevel " + 
+                    GameControl.control.levelsScores[sceneName];
+
+
                 endGameInstructions.SetActive(true);
                 //SceneManager.LoadScene("PresentationScene");
 

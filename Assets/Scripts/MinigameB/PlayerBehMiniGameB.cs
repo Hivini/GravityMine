@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerBehMiniGameB : MonoBehaviour
@@ -47,7 +48,8 @@ public class PlayerBehMiniGameB : MonoBehaviour
         healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         ended = false;
         endGameInstructions.SetActive(false);
-        bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameB",0).ToString() + " Boxes";
+        string currentScene = SceneManager.GetActiveScene().name;
+        bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[currentScene] + " Boxes";
         Time.timeScale = 0;
     }
 
@@ -163,12 +165,10 @@ public class PlayerBehMiniGameB : MonoBehaviour
 
                 
                 ended = true;
-                if (PlayerPrefs.GetInt("gameB", -1) < currentPoints)
-                {
-                    PlayerPrefs.SetInt("gameB", currentPoints);
-                    PlayerPrefs.Save();
-                }
-                bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameB", 0).ToString() + " Boxes";
+                string sceneName = SceneManager.GetActiveScene().name;
+                GameControl.control.FinishMinigame(sceneName, currentPoints);
+                GameControl.control.Save();
+                bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[sceneName] + " Boxes";
                 endGameInstructions.SetActive(true);
                 panel.SetActive(true);
                 currentPoints = 0;
