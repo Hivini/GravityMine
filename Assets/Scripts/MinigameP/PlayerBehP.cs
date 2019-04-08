@@ -14,18 +14,19 @@ public class PlayerBehP : MonoBehaviour
     int wall;
     int lives, level,
         countAuxPortalBlock,
-        countRotateBlock,
-        countCreateWall;
+        countRotateBlock;
+    float countCreateWall;
     bool auxPortalBlock, auxWallBlock, rotateBlock, hasEnter;
     GameObject exitPortal, enterPortal;
     public GameObject PortalController;
     Rigidbody rb;
     Transform t;
     Ray ray;
+    private float depth;
     // Start is called before the first frame update
     void Start()
     {
-
+        depth = -1;
         Reset();
 
     }
@@ -46,7 +47,7 @@ public class PlayerBehP : MonoBehaviour
         }
         level = 1;
         lives = 3;
-        ch = Instantiate(character, new Vector3(0, 0, -1), Quaternion.identity);
+        ch = Instantiate(character, new Vector3(0, 0, depth), Quaternion.identity);
         rb = ch.GetComponent<Rigidbody>();
         t = ch.GetComponent<Transform>();
         float direction = Random.Range(0f, 360f);
@@ -71,7 +72,7 @@ public class PlayerBehP : MonoBehaviour
                     auxPortalBlock = true;
                     countAuxPortalBlock = 0;
 
-                    t.position = new Vector3(create.x, create.y, -1);
+                    t.position = new Vector3(create.x, create.y, depth);
                     ap =Instantiate(auxPortal, create, Quaternion.Euler(90,0,0));
                     Destroy(ap, 1);
 
@@ -81,13 +82,21 @@ public class PlayerBehP : MonoBehaviour
                 if (Input.GetMouseButton(1) && !auxWallBlock)
                 {
                     auxWallBlock = true;
-                    Vector3 createWall = new Vector3(create.x, create.y, -1);
+                    Vector3 createWall = new Vector3(create.x, create.y, depth);
                     aw = Instantiate(auxWall, createWall, Quaternion.identity);
                     Destroy(aw, 5);
+                    countCreateWall = Time.time + .3f;
                 }
-                if (Input.GetKey(KeyCode.Space) && aw!=null && !rotateBlock)
+                if (Input.GetAxisRaw("Horizontal") == 1 && aw!=null && !rotateBlock)
                 {
                     aw.transform.Rotate(new Vector3(0,0,1),45f);
+                    rotateBlock = true;
+                    countRotateBlock = 0;
+
+                }
+                else if (Input.GetAxisRaw("Horizontal") == -1 && aw != null && !rotateBlock)
+                {
+                    aw.transform.Rotate(new Vector3(0, 0, 1), -45f);
                     rotateBlock = true;
                     countRotateBlock = 0;
 
@@ -97,7 +106,6 @@ public class PlayerBehP : MonoBehaviour
         }
         countAuxPortalBlock ++;
         countRotateBlock++;
-        countCreateWall++;
         if (countAuxPortalBlock>50)
         {
             countAuxPortalBlock = 0;
@@ -108,9 +116,9 @@ public class PlayerBehP : MonoBehaviour
             countRotateBlock = 0;
             rotateBlock = false;
         }
-        if (countCreateWall > 30)
+        if (countCreateWall < Time.time)
         {
-            countCreateWall = 0;
+            countCreateWall = -1;
             auxWallBlock = false;
         }
     }
@@ -160,6 +168,7 @@ public class PlayerBehP : MonoBehaviour
                 print("lives: " + lives);
                 if (lives == 0)
                 {
+                    // TODO: Create the end game UI
                     Destroy(e);
                     print("sin vidas");
                     var pcScript = PortalController.GetComponent<PortalControllerScript>();
@@ -169,7 +178,7 @@ public class PlayerBehP : MonoBehaviour
                 else
                 {
                     //print("WROOOONG");
-                    t.position = new Vector3(0, 0, 0);
+                    t.position = new Vector3(0, 0, depth);
                     float direction = Random.Range(0f, 360f);
                     Vector3 vel = new Vector3(speed * Mathf.Cos(direction * Mathf.PI / 180f), speed * Mathf.Sin(direction * Mathf.PI / 180f), 0);
                     print(vel);
