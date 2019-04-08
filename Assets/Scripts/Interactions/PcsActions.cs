@@ -32,8 +32,7 @@ public class PcsActions : MonoBehaviour
 
                 break;
             case "changeSceneC":
-                if (GameControl.control.passedLevels["Final_Minigame_A"] &&
-                    GameControl.control.passedLevels["Final_Minigame_B"])
+                if (GameControl.control.passedLevels["Final_Minigame_B"])
                     SceneManager.LoadScene("Final_Minigame_C");
                 else
                 {
