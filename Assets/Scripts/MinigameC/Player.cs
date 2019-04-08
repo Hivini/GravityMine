@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -115,12 +116,10 @@ public class Player : MonoBehaviour
         {
             Time.timeScale = 0;
             ended = true;
-            if (PlayerPrefs.GetInt("gameC", -1) < zPos)
-            {
-                PlayerPrefs.SetInt("gameC", zPos);
-                PlayerPrefs.Save();
-            }
-            bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters";
+            string sceneName = SceneManager.GetActiveScene().name;
+            GameControl.control.FinishMinigame(sceneName, zPos);
+            GameControl.control.Save();
+            bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[sceneName] + " meters";
             endGameInstructions.SetActive(true);
             panel.SetActive(true);
         }

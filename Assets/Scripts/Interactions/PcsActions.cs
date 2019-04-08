@@ -36,10 +36,20 @@ public class PcsActions : MonoBehaviour
                     SceneManager.LoadScene("Final_Minigame_C");
                 else
                 {
-                    helpText.text = "You must complete game A and B";
+                    helpText.text = "You must complete game B";
                     StartCoroutine(ReturnHelpText());
                 }
-
+                break;
+            case "changeSceneD":
+                if (GameControl.control.passedLevels["Final_Minigame_C"])
+                {
+                    SceneManager.LoadScene("MinigameP");
+                }
+                else
+                {
+                    helpText.text = "You must complete game C";
+                    StartCoroutine(ReturnHelpText());
+                }
                 break;
             default:
                 break;
