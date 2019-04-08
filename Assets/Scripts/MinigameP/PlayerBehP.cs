@@ -11,6 +11,7 @@ public class PlayerBehP : MonoBehaviour
     GameObject ap, aw, e;
     public GameObject ch;
     float speed;
+    int wall;
     int lives, level,
         countAuxPortalBlock,
         countRotateBlock,
@@ -102,7 +103,7 @@ public class PlayerBehP : MonoBehaviour
             countAuxPortalBlock = 0;
             auxPortalBlock = false;
         }
-        if (countRotateBlock > 30)
+        if (countRotateBlock > 15)
         {
             countRotateBlock = 0;
             rotateBlock = false;
@@ -131,10 +132,18 @@ public class PlayerBehP : MonoBehaviour
                 }
                 print("player level" + level);
                 auxWallBlock = false;
-                speed += 0.2f;
+                speed += 0.1f;
                 print(exitPortal.transform.position);
-                t.SetPositionAndRotation(new Vector3(exitPortal.transform.position.x, exitPortal.transform.position.y, t.position.z), t.rotation);
                 var pcScript = PortalController.GetComponent<PortalControllerScript>();
+                wall = pcScript.GetExitWall();
+                Vector2 wallPositionCor = new Vector2((wall % 2 == 0) ? 0 : (wall == 1 ? 1 : -1), (wall % 2 == 0) ? (wall == 0 ? -1 : 1) : 0);
+                Vector3 newPositionBall = new Vector3(
+                    .6f * wallPositionCor.x + exitPortal.transform.position.x,
+                    .6f * wallPositionCor.y + exitPortal.transform.position.y,
+                    t.position.z);
+
+
+                t.SetPositionAndRotation(newPositionBall, t.rotation);
                 float direction = pcScript.GetDirectionSpeedPlayer();
                 rb.velocity = speed * (new Vector3(Mathf.Cos(Mathf.Deg2Rad * (direction)), Mathf.Sin(Mathf.Deg2Rad * (direction)), 0));
                 pcScript.Upgrade();

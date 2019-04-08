@@ -76,22 +76,27 @@ public class PortalControllerScript : MonoBehaviour
     {
         // in degrees.
         int cuadrante;
-        if (wall_XP == 0)
+        if (currentExit.transform.position.y > 0)
         {
-            cuadrante = (xp.transform.position.x > 0) ? 3 : 4;
-
-        }
-        else if (wall_XP == 1)
-        {
-            cuadrante = (xp.transform.position.y > 0) ? 4 : 1;
-        }
-        else if (wall_XP == 2)
-        {
-            cuadrante = (xp.transform.position.x > 0) ? 2 : 1;
+            if (currentExit.transform.position.x > 0)
+            {
+                cuadrante = 3;
+            }
+            else
+            {
+                cuadrante = 4;
+            }
         }
         else
         {
-            cuadrante = (xp.transform.position.y > 0) ? 3 : 2;
+            if (currentExit.transform.position.x > 0)
+            {
+                cuadrante = 2;
+            }
+            else
+            {
+                cuadrante = 1;
+            }
         }
         return 90f * (cuadrante - 1) + dir_angle_XP;
     }
@@ -103,6 +108,10 @@ public class PortalControllerScript : MonoBehaviour
         position *= (wall % 2 == 0) ? 7.3f : 5.3f;
         return new Vector3((wall % 2 == 0) ? position : 7.3f * (wall == 1 ? -1 : 1), (wall % 2 == 0) ? 5.3f * (wall == 0 ? 1 : -1) : position, -0.5f);
 
+    }
+    public int GetExitWall()
+    {
+        return wall_XP;
     }
     Quaternion GetRotation(int wall)
     {
