@@ -121,11 +121,10 @@ public class PlayerController : MonoBehaviour
         {
             if (!gravityLastPressed)
             {
-                gravityDirection *= -1;
                 Physics.gravity = Physics.gravity * gravityDirection;
                 gravityLastPressed = true;
                 this.transform.up *= gravityDirection;
-
+                facingRight = !facingRight;
             }
         }
         else
