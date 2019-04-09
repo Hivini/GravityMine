@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jumpForce;
+    private int gravityDirection;
     public LayerMask groundLayer;
     public Transform groundCheck;
     public GameObject pauseMenu;
@@ -19,12 +20,15 @@ public class PlayerController : MonoBehaviour
     private bool facingRight;
     public static bool openPauseMenu;
     private bool lastPressed;
+    private bool gravityLastPressed;
 
     private const float groundCheckRadius = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
+        gravityLastPressed = false;
+        gravityDirection = -1;
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         // The player will always start facing right
@@ -94,10 +98,10 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             animator.SetBool("grounded", grounded);
             // Do the jump
-            rigidbody.AddForce(new Vector3(0, jumpForce, 0));
+            rigidbody.AddForce(new Vector3(0, jumpForce * gravityDirection, 0));
         }
 
-        float h = Input.GetAxis("Horizontal");
+        float h = Input.GetAxis("Horizontal") * -gravityDirection;
         animator.SetFloat("speed", Mathf.Abs(h));
 
         rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, speed * h);
@@ -112,6 +116,23 @@ public class PlayerController : MonoBehaviour
             // Changing to left
             Flip();
         }
+
+        if (Input.GetButton("ChangeGravity"))
+        {
+            if (!gravityLastPressed)
+            {
+                gravityDirection *= -1;
+                Physics.gravity = Physics.gravity * gravityDirection;
+                gravityLastPressed = true;
+                //this.transform.up *= gravityDirection;
+                
+            }
+        }
+        else
+        {
+            gravityLastPressed = false;
+        }
+
     }
 
     IEnumerator UpdatePos()
@@ -131,8 +152,17 @@ public class PlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         Vector3 scale = transform.localScale;
-        scale.z *= -1;
+        
+        if (transform.forward.z > 0)
+        {
+            scale.z *= -1 * -gravityDirection;
+        } else
+        {
+            scale.z *= 1 * gravityDirection;
+        }
+        
         transform.localScale = scale;
+        print(transform.forward);
     }
 
     public void ClickTest()
