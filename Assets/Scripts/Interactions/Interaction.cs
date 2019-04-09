@@ -21,6 +21,9 @@ public class Interaction : MonoBehaviour
     private float responseTime;
     private ConversationController conversation;
 
+    bool lastPressed;
+    bool openPauseMenu;
+
     // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
@@ -37,16 +40,19 @@ public class Interaction : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        float interact = Input.GetAxisRaw("Fire1");
-        if (message.activeSelf && interact == 1 && Time.time > responseTime)
+        if (!PlayerController.openPauseMenu)
         {
-            conversation.nextMessage();
-            responseTime = Time.time + .4f;
-        }
-        else if (interact == 1 && !message.activeSelf && Time.time > responseTime)
-        {
-            conversation.nextMessage();
-            responseTime = Time.time + .4f;
+            float interact = Input.GetAxisRaw("Fire1");
+            if (message.activeSelf && interact == 1 && Time.time > responseTime)
+            {
+                conversation.nextMessage();
+                responseTime = Time.time + .4f;
+            }
+            else if (interact == 1 && !message.activeSelf && Time.time > responseTime)
+            {
+                conversation.nextMessage();
+                responseTime = Time.time + .4f;
+            }
         }
 
     }

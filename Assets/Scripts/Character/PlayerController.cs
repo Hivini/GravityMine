@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Collider[] groundCollisions;
     private bool grounded;
     private bool facingRight;
-    private bool openPauseMenu;
+    public static bool openPauseMenu;
     private bool lastPressed;
 
     private const float groundCheckRadius = 0.2f;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
         facingRight = true;
         grounded = false;
         lastPressed = false;
-        openPauseMenu = false;
+        PlayerController.openPauseMenu = false;
         if (GameControl.control.hasPos)
         {
             Vector3 pos = new Vector3(GameControl.control.playerX,
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         // Pause menu
         if (Input.GetButton("Pause"))
         {
-            if (!lastPressed && !openPauseMenu)
+            if (!lastPressed && !PlayerController.openPauseMenu)
             {
                 GameControl.control.playerX = transform.position.x;
                 GameControl.control.playerY = transform.position.y;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 openPauseMenu = true;
                 lastPressed = true;
             }
-            else if (!lastPressed && openPauseMenu)
+            else if (!lastPressed && PlayerController.openPauseMenu)
             {
                 Destroy(pauseMenuInstance.gameObject);
                 openPauseMenu = false;
