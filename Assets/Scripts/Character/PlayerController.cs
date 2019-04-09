@@ -45,6 +45,10 @@ public class PlayerController : MonoBehaviour
             gameObject.transform.position = pos;
             camera.gameObject.transform.position = cameraPos;
         }
+        else
+        {
+            GameControl.control.hasPos = true;
+        }
 
         StartCoroutine(UpdatePos());
     }

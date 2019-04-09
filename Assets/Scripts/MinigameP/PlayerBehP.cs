@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehP : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class PlayerBehP : MonoBehaviour
     public GameObject auxWall;
     public GameObject enemy;
     public GameObject auxPortal;
+    public Text liveText;
     GameObject ap, aw, e;
     public GameObject ch;
     float speed;
@@ -52,7 +55,7 @@ public class PlayerBehP : MonoBehaviour
         t = ch.GetComponent<Transform>();
         float direction = Random.Range(0f, 360f);
         rb.velocity = new Vector3(speed * Mathf.Cos(direction * Mathf.PI / 180f), speed * Mathf.Sin(direction * Mathf.PI / 180f), 0);
-        print("lives"+ lives);
+        liveText.text = "Lives: " + lives;
     }
 
     // Update is called once per frame
@@ -136,6 +139,7 @@ public class PlayerBehP : MonoBehaviour
                 StartCoroutine("wait");
                 level++;
                 lives++;
+                liveText.text = "Lives: " + lives;
                 if (level == 2)
                 {
                     e=Instantiate(enemy, Vector3.zero, Quaternion.identity);
@@ -167,12 +171,16 @@ public class PlayerBehP : MonoBehaviour
             else
             {
                 lives--;
-                //print("lives: " + lives);
+                liveText.text = "Lives: " + lives;
                 if (lives == 0)
                 {
                     // TODO: Create the end game UI
                     Destroy(e);
+                    print("I reach this place");
                     //print("sin vidas");
+                    string sceneName = SceneManager.GetActiveScene().name;
+                    GameControl.control.FinishMinigame(sceneName, level);
+                    GameControl.control.Save();
                     var pcScript = PortalController.GetComponent<PortalControllerScript>();
                     pcScript.Reset();
                     Reset();

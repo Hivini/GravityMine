@@ -27,10 +27,12 @@ public class GameControl : MonoBehaviour
         passedLevels.Add("Final_Minigame_A", false);
         passedLevels.Add("Final_Minigame_B", false);
         passedLevels.Add("Final_Minigame_C", false);
+        passedLevels.Add("Final_Minigame_D", false);
 
         levelsScores.Add("Final_Minigame_A", 0);
         levelsScores.Add("Final_Minigame_B", 0);
         levelsScores.Add("Final_Minigame_C", 0);
+        levelsScores.Add("Final_Minigame_D", 0);
 
         if (control == null)
         {
