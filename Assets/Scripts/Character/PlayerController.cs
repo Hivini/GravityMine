@@ -28,7 +28,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gravityLastPressed = false;
-        gravityDirection = -1;
+        if (PlayerPrefs.GetInt("gravityDirection", -1) == -1)
+        {
+            PlayerPrefs.SetInt("gravityDirection", -1);
+            gravityDirection = -1;
+        }
+        else
+        {
+            gravityDirection = 1;
+            // this.transform.up *= -1;
+        }
+
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         // The player will always start facing right
@@ -43,7 +53,7 @@ public class PlayerController : MonoBehaviour
                                          GameControl.control.playerZ);
             Vector3 cameraPos =
                         new Vector3(camera.gameObject.transform.position.x,
-                                    camera.gameObject.transform.position.y,
+                                    pos.y,
                                     pos.z);
             // Update both positions
             gameObject.transform.position = pos;
@@ -123,8 +133,9 @@ public class PlayerController : MonoBehaviour
             {
                 Physics.gravity = Physics.gravity * gravityDirection;
                 gravityLastPressed = true;
-                this.transform.up *= gravityDirection;
-                facingRight = !facingRight;
+                // this.transform.up *= gravityDirection;
+                // facingRight = !facingRight;
+                PlayerPrefs.SetInt("gravityDirection", gravityDirection);
             }
         }
         else
