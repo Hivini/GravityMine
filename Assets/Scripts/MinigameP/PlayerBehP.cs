@@ -67,7 +67,9 @@ public class PlayerBehP : MonoBehaviour
             if (Mathf.Abs(create.y)<5.4 && Mathf.Abs(create.x) < 7.4) { // dentro de la caja
 
 
-                if (Input.GetMouseButton(0) && !auxPortalBlock)
+                if (Input.GetMouseButton(0) && !auxPortalBlock &&
+                    (Mathf.Abs(create.y) < 3.5f && Mathf.Abs(create.x) < 6f)
+                    )
                 {
                     auxPortalBlock = true;
                     countAuxPortalBlock = 0;
@@ -159,18 +161,18 @@ public class PlayerBehP : MonoBehaviour
             }
             else if (collision.collider.tag.Equals("AuxWall"))
             {
-                print("no hace nada");
+                //print("no hace nada");
                 Destroy(collision.gameObject, 2);
             }
             else
             {
                 lives--;
-                print("lives: " + lives);
+                //print("lives: " + lives);
                 if (lives == 0)
                 {
                     // TODO: Create the end game UI
                     Destroy(e);
-                    print("sin vidas");
+                    //print("sin vidas");
                     var pcScript = PortalController.GetComponent<PortalControllerScript>();
                     pcScript.Reset();
                     Reset();
