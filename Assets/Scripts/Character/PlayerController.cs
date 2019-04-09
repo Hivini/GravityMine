@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             animator.SetBool("grounded", grounded);
             // Do the jump
-            rigidbody.AddForce(new Vector3(0, jumpForce * gravityDirection, 0));
+            rigidbody.AddForce(new Vector3(0, jumpForce, 0));
         }
 
         float h = Input.GetAxis("Horizontal") * -gravityDirection;
@@ -124,8 +124,8 @@ public class PlayerController : MonoBehaviour
                 gravityDirection *= -1;
                 Physics.gravity = Physics.gravity * gravityDirection;
                 gravityLastPressed = true;
-                //this.transform.up *= gravityDirection;
-                
+                this.transform.up *= gravityDirection;
+
             }
         }
         else
@@ -152,14 +152,8 @@ public class PlayerController : MonoBehaviour
         facingRight = !facingRight;
 
         Vector3 scale = transform.localScale;
-        
-        if (transform.forward.z > 0)
-        {
-            scale.z *= -1 * -gravityDirection;
-        } else
-        {
-            scale.z *= 1 * gravityDirection;
-        }
+
+        scale.z *= -1;
         
         transform.localScale = scale;
         print(transform.forward);
