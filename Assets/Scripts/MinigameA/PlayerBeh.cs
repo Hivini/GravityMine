@@ -27,9 +27,11 @@ public class PlayerBeh : MonoBehaviour
     public GameObject startGameInstructions;
     public GameObject endGameInstructions;
     public Text bestScore;
+    string sceneName;
 
     void Start()
     {
+        sceneName = SceneManager.GetActiveScene().name;
         fibon = 1;
         fibon1=1;
 
@@ -56,7 +58,7 @@ public class PlayerBeh : MonoBehaviour
 
         Time.timeScale = 0;
         endGameInstructions.SetActive(false);
-        bestScore.text = "Current best score is: \nLevel " + PlayerPrefs.GetInt("gameA").ToString();
+        bestScore.text = "Current best score is: \nLevel " + GameControl.control[sceneName].ToString();
     }
     void startEnemiesL1()
     {
@@ -144,7 +146,7 @@ public class PlayerBeh : MonoBehaviour
             {
                 Time.timeScale = 0;
                 ended = true;
-                string sceneName = SceneManager.GetActiveScene().name;
+                
                 GameControl.control.FinishMinigame(sceneName, level);
                 GameControl.control.Save();
                 bestScore.text = "Current best score is: \nLevel " + 
