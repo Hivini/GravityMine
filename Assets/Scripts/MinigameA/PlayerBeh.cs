@@ -148,7 +148,7 @@ public class PlayerBeh : MonoBehaviour
                 GameControl.control.FinishMinigame(sceneName, level);
                 GameControl.control.Save();
                 bestScore.text = "Current best score is: \nLevel " + 
-                    GameControl.control.levelsScores[sceneName];
+                    GameControl.control[sceneName];
 
 
                 endGameInstructions.SetActive(true);

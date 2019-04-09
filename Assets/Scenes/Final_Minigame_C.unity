@@ -590,7 +590,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1033681874}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -681,7 +681,7 @@ PrefabInstance:
     - target: {fileID: 3926194180928350952, guid: 9b5ff7c26129748f687fddf5ec83d91b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.3
       objectReference: {fileID: 0}
     - target: {fileID: 3926194180928350952, guid: 9b5ff7c26129748f687fddf5ec83d91b,
         type: 3}
@@ -726,12 +726,12 @@ PrefabInstance:
     - target: {fileID: 3926194180928350952, guid: 9b5ff7c26129748f687fddf5ec83d91b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31
+      value: -43.699997
       objectReference: {fileID: 0}
     - target: {fileID: 3926194180928350952, guid: 9b5ff7c26129748f687fddf5ec83d91b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15.5
+      value: -27.100006
       objectReference: {fileID: 0}
     - target: {fileID: 3926194180928350952, guid: 9b5ff7c26129748f687fddf5ec83d91b,
         type: 3}
@@ -1070,6 +1070,75 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &1850637013
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1035506481941079457, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_Name
+      value: GameControl
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.7227898
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.1505027
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.994975
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507353986570870511, guid: fe27c60d0521a4639841e5271654fad7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fe27c60d0521a4639841e5271654fad7, type: 3}
 --- !u!4 &1925371245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1777891447103650308, guid: 16643e706fcaeeb489d78972ce5356c4,

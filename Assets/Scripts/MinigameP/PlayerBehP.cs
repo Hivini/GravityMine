@@ -26,11 +26,29 @@ public class PlayerBehP : MonoBehaviour
     Transform t;
     Ray ray;
     private float depth;
+    private string sceneName;
+
+    GameObject startGameInstructions;
+    GameObject endGameInstructions;
+    Text bestScore;
+    Text livesText;
+    bool ended;
     // Start is called before the first frame update
     void Start()
     {
+        sceneName = SceneManager.GetActiveScene().name;
+        livesText = GameObject.Find("lives").GetComponent<Text>();
+        startGameInstructions = GameObject.Find("startInstructions");
+        endGameInstructions = GameObject.Find("endGameInstructions");
+        bestScore = GameObject.Find("bestScore").GetComponent<Text>();
+
         depth = -1;
         Reset();
+
+        Time.timeScale = 0;
+        ended = false;
+        bestScore.text = "Current best score is: \nLevel: " + GameControl.control[sceneName];
+        endGameInstructions.SetActive(false);
 
     }
     private void Reset()
@@ -55,76 +73,96 @@ public class PlayerBehP : MonoBehaviour
         t = ch.GetComponent<Transform>();
         float direction = Random.Range(0f, 360f);
         rb.velocity = new Vector3(speed * Mathf.Cos(direction * Mathf.PI / 180f), speed * Mathf.Sin(direction * Mathf.PI / 180f), 0);
-        liveText.text = "Lives: " + lives;
+        liveText.text = "Lives: " + lives + " Level: " + level;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(rb.velocity.magnitude);
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        if (!ended && Time.timeScale != 0)
         {
-            Vector3 create = new Vector3(hit.point.x, hit.point.y, 0.9f);
-            if (Mathf.Abs(create.y)<5.4 && Mathf.Abs(create.x) < 7.4) { // dentro de la caja
+            print(rb.velocity.magnitude);
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Vector3 create = new Vector3(hit.point.x, hit.point.y, 0.9f);
+                if (Mathf.Abs(create.y) < 5.4 && Mathf.Abs(create.x) < 7.4)
+                { // dentro de la caja
 
 
-                if (Input.GetMouseButton(0) && !auxPortalBlock &&
-                    (Mathf.Abs(create.y) < 3.5f && Mathf.Abs(create.x) < 6f)
-                    )
-                {
-                    auxPortalBlock = true;
-                    countAuxPortalBlock = 0;
+                    if (Input.GetMouseButton(0) && !auxPortalBlock &&
+                        (Mathf.Abs(create.y) < 3.5f && Mathf.Abs(create.x) < 6f)
+                        )
+                    {
+                        auxPortalBlock = true;
+                        countAuxPortalBlock = 0;
 
-                    t.position = new Vector3(create.x, create.y, depth);
-                    ap =Instantiate(auxPortal, create, Quaternion.Euler(90,0,0));
-                    Destroy(ap, 1);
+                        t.position = new Vector3(create.x, create.y, depth);
+                        ap = Instantiate(auxPortal, create, Quaternion.Euler(90, 0, 0));
+                        Destroy(ap, 1);
+
+                    }
+
+
+                    if (Input.GetMouseButton(1) && !auxWallBlock)
+                    {
+                        auxWallBlock = true;
+                        Vector3 createWall = new Vector3(create.x, create.y, depth);
+                        aw = Instantiate(auxWall, createWall, Quaternion.identity);
+                        Destroy(aw, 5);
+                        countCreateWall = Time.time + .3f;
+                    }
+                    if (Input.GetAxisRaw("Horizontal") == 1 && aw != null && !rotateBlock)
+                    {
+                        aw.transform.Rotate(new Vector3(0, 0, 1), 45f);
+                        rotateBlock = true;
+                        countRotateBlock = 0;
+
+                    }
+                    else if (Input.GetAxisRaw("Horizontal") == -1 && aw != null && !rotateBlock)
+                    {
+                        aw.transform.Rotate(new Vector3(0, 0, 1), -45f);
+                        rotateBlock = true;
+                        countRotateBlock = 0;
+
+                    }
 
                 }
-
-
-                if (Input.GetMouseButton(1) && !auxWallBlock)
-                {
-                    auxWallBlock = true;
-                    Vector3 createWall = new Vector3(create.x, create.y, depth);
-                    aw = Instantiate(auxWall, createWall, Quaternion.identity);
-                    Destroy(aw, 5);
-                    countCreateWall = Time.time + .3f;
-                }
-                if (Input.GetAxisRaw("Horizontal") == 1 && aw!=null && !rotateBlock)
-                {
-                    aw.transform.Rotate(new Vector3(0,0,1),45f);
-                    rotateBlock = true;
-                    countRotateBlock = 0;
-
-                }
-                else if (Input.GetAxisRaw("Horizontal") == -1 && aw != null && !rotateBlock)
-                {
-                    aw.transform.Rotate(new Vector3(0, 0, 1), -45f);
-                    rotateBlock = true;
-                    countRotateBlock = 0;
-
-                }
-
+            }
+            countAuxPortalBlock++;
+            countRotateBlock++;
+            if (countAuxPortalBlock > 50)
+            {
+                countAuxPortalBlock = 0;
+                auxPortalBlock = false;
+            }
+            if (countRotateBlock > 15)
+            {
+                countRotateBlock = 0;
+                rotateBlock = false;
+            }
+            if (countCreateWall < Time.time)
+            {
+                countCreateWall = -1;
+                auxWallBlock = false;
             }
         }
-        countAuxPortalBlock ++;
-        countRotateBlock++;
-        if (countAuxPortalBlock>50)
+        else if (Input.GetMouseButton(0) && ended)
         {
-            countAuxPortalBlock = 0;
-            auxPortalBlock = false;
+            ended = false;
+            endGameInstructions.SetActive(false);
+            var pcScript = PortalController.GetComponent<PortalControllerScript>();
+            pcScript.Reset();
+            Reset();
+            bestScore.text = "";
+            Time.timeScale = 1;
         }
-        if (countRotateBlock > 15)
+        else if (Input.GetMouseButton(0))
         {
-            countRotateBlock = 0;
-            rotateBlock = false;
-        }
-        if (countCreateWall < Time.time)
-        {
-            countCreateWall = -1;
-            auxWallBlock = false;
+            bestScore.text = "";
+            Time.timeScale = 1;
+            startGameInstructions.SetActive(false);
         }
     }
 
@@ -139,7 +177,7 @@ public class PlayerBehP : MonoBehaviour
                 StartCoroutine("wait");
                 level++;
                 lives++;
-                liveText.text = "Lives: " + lives;
+                liveText.text = "Lives: " + lives + " Level: " + level;
                 if (level == 2)
                 {
                     e=Instantiate(enemy, Vector3.zero, Quaternion.identity);
@@ -171,19 +209,18 @@ public class PlayerBehP : MonoBehaviour
             else
             {
                 lives--;
-                liveText.text = "Lives: " + lives;
+                liveText.text = "Lives: " + lives + " Level: " + level;
                 if (lives == 0)
                 {
-                    // TODO: Create the end game UI
+                    Time.timeScale = 0;
+                    ended = true;
+                    GameControl.control.FinishMinigame(sceneName, level);
+                    GameControl.control.Save();
+                    bestScore.text = "Current best score is: \nLevel: " + GameControl.control[sceneName];
+                    endGameInstructions.SetActive(true);
                     Destroy(e);
                     print("I reach this place");
                     //print("sin vidas");
-                    string sceneName = SceneManager.GetActiveScene().name;
-                    GameControl.control.FinishMinigame(sceneName, level);
-                    GameControl.control.Save();
-                    var pcScript = PortalController.GetComponent<PortalControllerScript>();
-                    pcScript.Reset();
-                    Reset();
                 }
                 else
                 {

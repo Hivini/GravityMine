@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
             string sceneName = SceneManager.GetActiveScene().name;
             GameControl.control.FinishMinigame(sceneName, zPos);
             GameControl.control.Save();
-            bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[sceneName] + " meters";
+            bestScore.text = "Current best score is: \n" + GameControl.control[sceneName] + " meters";
             endGameInstructions.SetActive(true);
             panel.SetActive(true);
         }

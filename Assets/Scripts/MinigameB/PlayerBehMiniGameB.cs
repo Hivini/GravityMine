@@ -49,7 +49,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
         ended = false;
         endGameInstructions.SetActive(false);
         string currentScene = SceneManager.GetActiveScene().name;
-        bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[currentScene] + " Boxes";
+        bestScore.text = "Current best score is: \n" + GameControl.control[currentScene] + " Boxes";
         Time.timeScale = 0;
     }
 
@@ -119,6 +119,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
             endGameInstructions.SetActive(false);
             panel.SetActive(false);
             bestScore.text = "";
+            healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         }
         else if (Input.GetMouseButton(0))
         {
@@ -127,6 +128,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
             Time.timeScale = 1;
             startGameInstructions.SetActive(false);
             panel.SetActive(false);
+            healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         }
     }
     public void OnTriggerEnter(Collider other)
@@ -168,7 +170,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
                 string sceneName = SceneManager.GetActiveScene().name;
                 GameControl.control.FinishMinigame(sceneName, currentPoints);
                 GameControl.control.Save();
-                bestScore.text = "Current best score is: \n" + GameControl.control.levelsScores[sceneName] + " Boxes";
+                bestScore.text = "Current best score is: \n" + GameControl.control[sceneName] + " Boxes";
                 endGameInstructions.SetActive(true);
                 panel.SetActive(true);
                 currentPoints = 0;

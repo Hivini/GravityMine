@@ -12,7 +12,7 @@ public class GameControl : MonoBehaviour
     public float playerY;
     public float playerZ;
     public Dictionary<string, bool> passedLevels;
-    public Dictionary<string, int> levelsScores;
+    private Dictionary<string, int> levelsScores;
     public bool hasPos;
     public int scene; // <--- TODO Later implementation to know in which pointsToCollect is
 
@@ -94,7 +94,7 @@ public class GameControl : MonoBehaviour
     {
         if (levelsScores[sceneName] < score)
         {
-            levelsScores[sceneName] = score;
+            this[sceneName] = score;
         }
 
         if (!passedLevels[sceneName])
@@ -102,6 +102,35 @@ public class GameControl : MonoBehaviour
             passedLevels[sceneName] = true;
         }
     }
+
+
+
+    public int this[string key]
+    {
+        get
+        {
+            if (levelsScores.ContainsKey(key))
+            {
+                return levelsScores[key];
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        set
+        {
+            if (levelsScores.ContainsKey(key))
+            {
+                levelsScores[key] = value;
+            }
+            else {
+                levelsScores.Add(key, value);
+            }
+        }
+    }
+
+
 }
 
 [System.Serializable]
