@@ -22,18 +22,13 @@ public class PlayerBehMiniGameB : MonoBehaviour
     Queue<GameObject> exits = new Queue<GameObject>();
     GameObject ex;
     bool ended;
-    GameObject startGameInstructions;
-    GameObject endGameInstructions;
-    GameObject panel;
-    Text bestScore;
+    GameMenu gameMenu;
+
     // Start is called before the first frame update
     void Start()
     {
         healthText = GameObject.Find("HealthText").GetComponent<Text>();
-        startGameInstructions = GameObject.Find("startInstructions");
-        endGameInstructions = GameObject.Find("endGameInstructions");
-        panel = GameObject.Find("Panel");
-        bestScore = GameObject.Find("bestScore").GetComponent<Text>();
+        gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
         t = this.GetComponent<Transform>();
         rb = this.GetComponent<Rigidbody>();
         i= 0;
@@ -47,9 +42,10 @@ public class PlayerBehMiniGameB : MonoBehaviour
         currentPoints = 0;
         healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         ended = false;
-        endGameInstructions.SetActive(false);
         string currentScene = SceneManager.GetActiveScene().name;
-        bestScore.text = "Current best score is: \n" + GameControl.control[currentScene] + " Boxes";
+        gameMenu.setBestScoreText("Collect all white boxes without touching the black ones\n** Click to start playing **");
+        gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
+        gameMenu.setBestScoreText("Current best score is: \n" + GameControl.control[currentScene] + " Boxes");
         Time.timeScale = 0;
     }
 
@@ -116,18 +112,13 @@ public class PlayerBehMiniGameB : MonoBehaviour
             }
             exitsLiving = pointsToCollect;
             Time.timeScale = 1;
-            endGameInstructions.SetActive(false);
-            panel.SetActive(false);
-            bestScore.text = "";
+            gameMenu.hideAll();
             healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         }
         else if (Input.GetMouseButton(0))
         {
-            print("Clicked");
-            bestScore.text = "";
             Time.timeScale = 1;
-            startGameInstructions.SetActive(false);
-            panel.SetActive(false);
+            gameMenu.hideAll();
             healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         }
     }
@@ -170,9 +161,8 @@ public class PlayerBehMiniGameB : MonoBehaviour
                 string sceneName = SceneManager.GetActiveScene().name;
                 GameControl.control.FinishMinigame(sceneName, currentPoints);
                 GameControl.control.Save();
-                bestScore.text = "Current best score is: \n" + GameControl.control[sceneName] + " Boxes";
-                endGameInstructions.SetActive(true);
-                panel.SetActive(true);
+                gameMenu.setBestScoreText("Current best score is: \n" + GameControl.control[sceneName] + " Boxes");
+                gameMenu.endDisplay();
                 currentPoints = 0;
             }
         }

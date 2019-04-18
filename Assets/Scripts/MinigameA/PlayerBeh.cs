@@ -24,9 +24,7 @@ public class PlayerBeh : MonoBehaviour
     System.Random rand = new System.Random();
     Queue<GameObject> enemies = new Queue<GameObject>();
     private bool ended = false;
-    public GameObject startGameInstructions;
-    public GameObject endGameInstructions;
-    public Text bestScore;
+    public GameMenu gameMenu;
     string sceneName;
 
     void Start()
@@ -57,8 +55,10 @@ public class PlayerBeh : MonoBehaviour
         startEnemiesL1();
 
         Time.timeScale = 0;
-        endGameInstructions.SetActive(false);
-        bestScore.text = "Current best score is: \nLevel " + GameControl.control[sceneName].ToString();
+        gameMenu.setStartInstructions("Get to the highest level as posible\n**Click to start playing**");
+        gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
+        gameMenu.setBestScoreText("Current best score is: \nLevel " + GameControl.control[sceneName]);
+        gameMenu.startDisplay();
     }
     void startEnemiesL1()
     {
@@ -109,9 +109,8 @@ public class PlayerBeh : MonoBehaviour
         // Unpauses game
         if (Time.timeScale==0 && Input.GetMouseButton(0) && !ended)
         {
-            bestScore.text = "";
             Time.timeScale = 1;
-            startGameInstructions.SetActive(false);
+            gameMenu.hideAll();
         }
         else if (Time.timeScale == 0 && Input.GetMouseButton(0) && ended)
         {
@@ -126,8 +125,7 @@ public class PlayerBeh : MonoBehaviour
             }
 
             startEnemiesL1();
-            endGameInstructions.SetActive(false);
-            bestScore.text = "";
+            gameMenu.hideAll();
             text.text = "Level:    " + level + "     Lives: " + lives;
             Time.timeScale = 1;
 
@@ -137,7 +135,7 @@ public class PlayerBeh : MonoBehaviour
     }
     public void OnCollisionEnter(Collision collision)
     {
-        if (!collision.collider.tag.Equals( "BulletFriend"))// you can't shoot yourself hahahahaha
+        if (!collision.collider.tag.Equals( "BulletFriend"))// you can't shoot yourself
 
         {
             lives--;
@@ -149,11 +147,10 @@ public class PlayerBeh : MonoBehaviour
                 
                 GameControl.control.FinishMinigame(sceneName, level);
                 GameControl.control.Save();
-                bestScore.text = "Current best score is: \nLevel " + 
-                    GameControl.control[sceneName];
+                gameMenu.setBestScoreText("Current best score is: \nLevel " + GameControl.control[sceneName]);
 
 
-                endGameInstructions.SetActive(true);
+                gameMenu.endDisplay();
                 //SceneManager.LoadScene("PresentationScene");
 
             }

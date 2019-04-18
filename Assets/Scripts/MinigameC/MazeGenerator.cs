@@ -6,6 +6,7 @@ public class MazeGenerator : MonoBehaviour
 {
     System.Random r = new System.Random();
     public GameObject block, deadBlock, player;
+    private float depth = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +18,11 @@ public class MazeGenerator : MonoBehaviour
             {
                 if (boolMaze[i, j])
                 {
-                    Instantiate((r.Next(100) < 85) ? block : deadBlock, new Vector3(i * 0.5f - 8, j * 0.5f - 6, 0), new Quaternion());
+                    Instantiate((r.Next(100) < 85) ? block : deadBlock, new Vector3(i * 0.5f - 8, j * 0.5f - 6, depth), new Quaternion());
                 }
             }
         }
-        player=Instantiate(player, new Vector3(-7.5f, 4.5f, 0),  Quaternion.identity);
+        player=Instantiate(player, new Vector3(-7.5f, 4.5f, depth),  Quaternion.identity);
         SetPlayer(player,boolMaze);
 
     }
