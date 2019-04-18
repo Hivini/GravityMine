@@ -28,27 +28,30 @@ public class PlayerBehP : MonoBehaviour
     private float depth;
     private string sceneName;
 
-    GameObject startGameInstructions;
-    GameObject endGameInstructions;
-    Text bestScore;
+
+    GameMenu gameMenu;
+
     Text livesText;
     bool ended;
     // Start is called before the first frame update
     void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
+        gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
+        gameMenu.setStartInstructions("Go through the blue portal\nLeft Click to spawn the ball\nRight click to spawn wall\nRight and left to rotate last wall\n** Click to start playing **");
+        gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
+        gameMenu.setBestScoreText("Current best score is: \nLevel: " + GameControl.control[sceneName]);
+
         livesText = GameObject.Find("lives").GetComponent<Text>();
-        startGameInstructions = GameObject.Find("startInstructions");
-        endGameInstructions = GameObject.Find("endGameInstructions");
-        bestScore = GameObject.Find("bestScore").GetComponent<Text>();
+        
 
         depth = -1;
         Reset();
 
         Time.timeScale = 0;
         ended = false;
-        bestScore.text = "Current best score is: \nLevel: " + GameControl.control[sceneName];
-        endGameInstructions.SetActive(false);
+
+        gameMenu.startDisplay();
 
     }
     private void Reset()
@@ -151,18 +154,16 @@ public class PlayerBehP : MonoBehaviour
         else if (Input.GetMouseButton(0) && ended)
         {
             ended = false;
-            endGameInstructions.SetActive(false);
             var pcScript = PortalController.GetComponent<PortalControllerScript>();
             pcScript.Reset();
             Reset();
-            bestScore.text = "";
+            gameMenu.hideAll();
             Time.timeScale = 1;
         }
         else if (Input.GetMouseButton(0))
         {
-            bestScore.text = "";
+            gameMenu.hideAll();
             Time.timeScale = 1;
-            startGameInstructions.SetActive(false);
         }
     }
 
@@ -216,8 +217,8 @@ public class PlayerBehP : MonoBehaviour
                     ended = true;
                     GameControl.control.FinishMinigame(sceneName, level);
                     GameControl.control.Save();
-                    bestScore.text = "Current best score is: \nLevel: " + GameControl.control[sceneName];
-                    endGameInstructions.SetActive(true);
+                    gameMenu.setBestScoreText("Current best score is: \nLevel: " + GameControl.control[sceneName]);
+                    gameMenu.startDisplay();
                     Destroy(e);
                     print("I reach this place");
                     //print("sin vidas");
