@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jumpForce;
-    private int gravityDirection;
+    private bool gravityDown;
     public LayerMask groundLayer;
     public Transform groundCheck;
     public GameObject pauseMenu;
@@ -28,17 +28,17 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gravityLastPressed = false;
-        if (PlayerPrefs.GetInt("gravityDirection", -1) == -1)
+        if(PlayerPrefs.GetInt("gravityDown", 1) == 1)
         {
-            PlayerPrefs.SetInt("gravityDirection", -1);
-            gravityDirection = -1;
+            PlayerPrefs.SetInt("gravityDown", 1);
+            gravityDown = true;
         }
         else
         {
-            gravityDirection = 1;
-            // this.transform.up *= -1;
+            gravityDown = false;
+            this.transform.up *= -1;
         }
-
+        
         animator = GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody>();
         // The player will always start facing right
@@ -108,22 +108,19 @@ public class PlayerController : MonoBehaviour
             grounded = false;
             animator.SetBool("grounded", grounded);
             // Do the jump
-            rigidbody.AddForce(new Vector3(0, jumpForce, 0));
+            rigidbody.AddForce(new Vector3(0, jumpForce * (gravityDown?1:-1), 0));
         }
 
-        float h = Input.GetAxis("Horizontal") * -gravityDirection;
+        float h = Input.GetAxis("Horizontal");
+        
+
         animator.SetFloat("speed", Mathf.Abs(h));
 
         rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, speed * h);
 
-        if (h > 0 && !facingRight)
+        
+        if (gravityDown && (h > 0 && !facingRight  || h < 0 && facingRight) || !gravityDown && (h > 0 && facingRight || h < 0 && !facingRight))
         {
-            // Changing to right
-            Flip();
-        }
-        else if (h < 0 && facingRight)
-        {
-            // Changing to left
             Flip();
         }
 
@@ -131,11 +128,13 @@ public class PlayerController : MonoBehaviour
         {
             if (!gravityLastPressed)
             {
-                Physics.gravity = Physics.gravity * gravityDirection;
+                Physics.gravity = Physics.gravity * -1;
                 gravityLastPressed = true;
-                // this.transform.up *= gravityDirection;
-                // facingRight = !facingRight;
-                PlayerPrefs.SetInt("gravityDirection", gravityDirection);
+                
+                this.transform.up *= -1;
+                
+                gravityDown = !gravityDown;
+                PlayerPrefs.SetInt("gravityDirection", gravityDown?1:0);
             }
         }
         else
@@ -166,7 +165,6 @@ public class PlayerController : MonoBehaviour
         scale.z *= -1;
         
         transform.localScale = scale;
-        print(transform.forward);
     }
 
     public void ClickTest()
