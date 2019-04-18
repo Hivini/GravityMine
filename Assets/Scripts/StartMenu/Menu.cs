@@ -64,6 +64,17 @@ public class Menu : MonoBehaviour
                 btn.useGravity = true;
             }
         }
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+        if (h == 1)
+            Physics.gravity = new Vector3(9.81f, 0, 0);
+        else if(h == -1)
+            Physics.gravity = new Vector3(-9.81f, 0, 0);
+        else if (v == 1)
+            Physics.gravity = new Vector3(0, 9.81f, 0);
+        else if (v == -1 || v == 0 && h == 0)
+            Physics.gravity = new Vector3(0, -9.81f, 0);
+        
     }
 
     void newGame()
