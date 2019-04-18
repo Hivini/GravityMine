@@ -20,24 +20,17 @@ public class Player : MonoBehaviour
     public int zPos;
     public Spawner spawner;
 
-    GameObject startGameInstructions;
-    GameObject endGameInstructions;
-    GameObject panel;
-    Text bestScore;
     Text distanceText;
     bool ended;
     private Vector3 startPos;
+    private GameMenu gameMenu;
     public float AngleRad { get => angleRad; set => angleRad = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
         distanceText = GameObject.Find("distance").GetComponent<Text>();
-        startGameInstructions = GameObject.Find("startInstructions");
-        endGameInstructions = GameObject.Find("endGameInstructions");
-        panel = GameObject.Find("Panel");
-        bestScore = GameObject.Find("bestScore").GetComponent<Text>();
         zPos = 0;
         rigidbody = GetComponent<Rigidbody>();
         lastJ = false;
@@ -45,8 +38,10 @@ public class Player : MonoBehaviour
         AngleRad = (Mathf.PI / 180f) * angleDeg;
         destroying = false;
         startPos = transform.position;
-        endGameInstructions.SetActive(false);
-        bestScore.text = "Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters";
+        gameMenu.setStartInstructions("Go as far as possible!\n** Click to start playing **");
+        gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
+        gameMenu.setBestScoreText("Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters");
+        gameMenu.startDisplay();
         Time.timeScale = 0;
         ended = false;
     }
@@ -82,19 +77,15 @@ public class Player : MonoBehaviour
             spawner.destroyAll();
             ended = false;
             transform.position = startPos;
-            endGameInstructions.SetActive(false);
-            panel.SetActive(false);
-            bestScore.text = "";
+            gameMenu.hideAll();
             spawner.spawn(0);
             Time.timeScale = 1;
         }
         else if (Input.GetMouseButton(0))
         {
             print("Clicked");
-            bestScore.text = "";
             Time.timeScale = 1;
-            startGameInstructions.SetActive(false);
-            panel.SetActive(false);
+            gameMenu.hideAll();
         }
     }
 
@@ -112,16 +103,15 @@ public class Player : MonoBehaviour
             }
             //rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(AngleRad), -Mathf.Sin(AngleRad), 0)));
         }
-        else
+        else if(collision.gameObject.layer==LayerMask.NameToLayer("Water"))
         {
             Time.timeScale = 0;
             ended = true;
             string sceneName = SceneManager.GetActiveScene().name;
             GameControl.control.FinishMinigame(sceneName, zPos);
             GameControl.control.Save();
-            bestScore.text = "Current best score is: \n" + GameControl.control[sceneName] + " meters";
-            endGameInstructions.SetActive(true);
-            panel.SetActive(true);
+            gameMenu.setBestScoreText("Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters");
+            gameMenu.endDisplay();
         }
     }
 

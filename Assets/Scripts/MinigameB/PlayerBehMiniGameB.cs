@@ -43,7 +43,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
         healthText.text = "Points:    " + currentPoints + "     Lives: " + lives;
         ended = false;
         string currentScene = SceneManager.GetActiveScene().name;
-        gameMenu.setBestScoreText("Collect all white boxes without touching the black ones\n** Click to start playing **");
+        gameMenu.setStartInstructions("Collect all white boxes without touching the black ones\n** Click to start playing **");
         gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
         gameMenu.setBestScoreText("Current best score is: \n" + GameControl.control[currentScene] + " Boxes");
         Time.timeScale = 0;
