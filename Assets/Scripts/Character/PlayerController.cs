@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed;
     public float jumpForce;
-    private bool gravityDown;
+    public static bool openPauseMenu;
     public LayerMask groundLayer;
     public Transform groundCheck;
     public GameObject pauseMenu;
     public Camera camera;
+    public Text scoreText;
 
     private GameObject pauseMenuInstance;
     private Rigidbody rigidbody;
@@ -18,15 +20,19 @@ public class PlayerController : MonoBehaviour
     private Collider[] groundCollisions;
     private bool grounded;
     private bool facingRight;
-    public static bool openPauseMenu;
+    private bool gravityDown;
     private bool lastPressed;
     private bool gravityLastPressed;
+    private int score;
 
     private const float groundCheckRadius = 0.2f;
 
     // Start is called before the first frame update
     void Start()
     {
+        // TODO Load and save the score in the game controller.
+        score = 0;
+        UpdateScore(0);
         gravityLastPressed = false;
         if(PlayerPrefs.GetInt("gravityDown", 1) == 1)
         {
@@ -170,5 +176,21 @@ public class PlayerController : MonoBehaviour
     public void ClickTest()
     {
         GameControl.control.Save();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.tag);
+        if (other.tag == "Coin")
+        {
+            UpdateScore(100);
+            Destroy(other.gameObject);
+        }
+    }
+
+    private void UpdateScore(int points)
+    {
+        score += points;
+        scoreText.text = "Score: " + score;
     }
 }

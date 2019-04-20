@@ -17,6 +17,7 @@ TagManager:
   - AuxWall
   - AuxPortal
   - EnemyP
+  - Coin
   layers:
   - Default
   - TransparentFX
