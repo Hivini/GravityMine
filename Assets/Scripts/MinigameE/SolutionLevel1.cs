@@ -7,11 +7,12 @@ public class SolutionLevel1 : MonoBehaviour
     public GameObject bouncyWall;
     public GameObject wall;
     GameObject go;
+    bool solve;
     // Start is called before the first frame update
     void Start()
     {
-        int level = 1;
-        if (level == 1)
+        solve = false;
+        if (solve)
         {
             go = Instantiate(bouncyWall, new Vector3(5.3f, 31f, 0f), Quaternion.Euler(0, 0, 90));
             var src = go.GetComponent<BouncyWallScr>();

@@ -25,10 +25,19 @@ public class Controller_E : MonoBehaviour
     {
         allWalls  = new Queue<GameObject>();
         selected=null;
-        points = 200;
-        inicioPlayer = new Vector3[1];
+        points = 100;
+        inicioPlayer = new Vector3[10];
         inicioPlayer[0] = new Vector3(-11.5f, 42f,0);
-        level = 1;
+        inicioPlayer[1] = new Vector3(-3, 42f, 0);
+        inicioPlayer[2] = new Vector3(-30, 42f, 0);
+        inicioPlayer[3] = new Vector3(-11.5f, 42f, 0);
+        inicioPlayer[4] = new Vector3(2, 42f, 0);
+        inicioPlayer[5] = new Vector3(4, 42f, 0);
+        inicioPlayer[6] = new Vector3(-11.5f, 42f, 0);
+        inicioPlayer[7] = new Vector3(-11.5f, 42f, 0);
+        inicioPlayer[8] = new Vector3(0, 42f, 0);
+        inicioPlayer[9] = new Vector3(-11.5f, 42f, 0);
+        level = 3;
         waitPlayer = 0;
         isWaitingPlayer = false;
         loadGO = GameObject.Find("Load");
@@ -57,7 +66,7 @@ public class Controller_E : MonoBehaviour
                     allWalls.Enqueue(wa);
                 }
             }
-            if (Input.GetKey(KeyCode.X) && selected == null && !isWaitingPlayer)
+            if (Input.GetKey(KeyCode.X) && selected == null && !isWaitingPlayer && level!=3)
             {
                 isWaitingPlayer = true;
                 //INSTANCIA WALL BOUNCY
@@ -241,7 +250,8 @@ public class Controller_E : MonoBehaviour
     public void nextLevel()
     {
             level++;
-            var load = loadGO.GetComponent<LoadLevel>();
+            points += 100;
+        var load = loadGO.GetComponent<LoadLevel>();
             load.LoadLev(level);
         while (allWalls.Count>0)
         {
