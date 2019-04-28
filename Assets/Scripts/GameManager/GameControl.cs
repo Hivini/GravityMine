@@ -11,6 +11,7 @@ public class GameControl : MonoBehaviour
     public float playerX;
     public float playerY;
     public float playerZ;
+    public int pScore;
     public Dictionary<string, bool> passedLevels;
     private Dictionary<string, int> levelsScores;
     public bool hasPos;
@@ -20,6 +21,7 @@ public class GameControl : MonoBehaviour
     void Awake()
     {
         hasPos = false;
+        pScore = 0;
         passedLevels = new Dictionary<string, bool>();
         levelsScores = new Dictionary<string, int>();
 
@@ -59,7 +61,8 @@ public class GameControl : MonoBehaviour
             playerBY = playerY,
             playerBZ = playerZ,
             passedLevels = passedLevels,
-            levelsScores = levelsScores
+            levelsScores = levelsScores,
+            pBScore = pScore
         };
 
         bf.Serialize(file, data);
@@ -83,6 +86,7 @@ public class GameControl : MonoBehaviour
             playerX = data.playerBX;
             playerY = data.playerBY;
             playerZ = data.playerBZ;
+            pScore = data.pBScore;
             passedLevels = data.passedLevels;
             hasPos = true;
             Debug.Log("Loaded succesfully");
@@ -139,6 +143,7 @@ class PlayerData
     public float playerBX;
     public float playerBY;
     public float playerBZ;
+    public int pBScore;
     public Dictionary<string, bool> passedLevels;
     public Dictionary<string, int> levelsScores;
 }

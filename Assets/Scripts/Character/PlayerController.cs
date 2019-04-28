@@ -30,9 +30,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // TODO Load and save the score in the game controller.
-        score = 0;
-        UpdateScore(0);
         gravityLastPressed = false;
         if(PlayerPrefs.GetInt("gravityDown", 1) == 1)
         {
@@ -70,6 +67,8 @@ public class PlayerController : MonoBehaviour
             GameControl.control.hasPos = true;
         }
 
+        score = GameControl.control.pScore;
+        UpdateScore(0);
         StartCoroutine(UpdatePos());
     }
 
@@ -192,5 +191,6 @@ public class PlayerController : MonoBehaviour
     {
         score += points;
         scoreText.text = "Score: " + score;
+        GameControl.control.pScore = score;
     }
 }
