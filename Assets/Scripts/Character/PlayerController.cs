@@ -146,7 +146,30 @@ public class PlayerController : MonoBehaviour
         {
             gravityLastPressed = false;
         }
-
+        if (Input.GetButton("LessGravity"))
+        {
+            if(gravityDown)
+                Physics.gravity = new Vector3(0, .1f + Physics.gravity.y, 0);
+            else
+                Physics.gravity = new Vector3(0, -.1f + Physics.gravity.y, 0);
+            print(Physics.gravity);
+        }
+        else if (Input.GetButton("MoreGravity"))
+        {
+            if (gravityDown)
+                Physics.gravity = new Vector3(0, -.1f + Physics.gravity.y, 0);
+            else
+                Physics.gravity = new Vector3(0, .1f + Physics.gravity.y, 0);
+            print(Physics.gravity);
+        }
+        if (gravityDown && Physics.gravity.y>0)
+        {
+            Physics.gravity *= 0;
+        }
+        else if(!gravityDown && Physics.gravity.y < 0)
+        {
+            Physics.gravity *= 0;
+        }
     }
 
     IEnumerator UpdatePos()

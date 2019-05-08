@@ -9,13 +9,26 @@ public class GameMenu : MonoBehaviour
     public GameObject startInstructions, endInstructions, bestScore;
 
     private Text startInstructionsTextComponent, endInstructionsTextComponent, bestScoreTextComponent;
+    private string stringStartInstructions, stringEndInstructions, stringBestScore;
     
     void Start()
     {
         startDisplay();
-        startInstructionsTextComponent =startInstructions.GetComponent<Text>(); 
+        startInstructionsTextComponent = startInstructions.GetComponent<Text>(); 
         endInstructionsTextComponent = endInstructions.GetComponent<Text>();
         bestScoreTextComponent = bestScore.GetComponent<Text>();
+        if (stringStartInstructions != null)
+        {
+            startInstructionsTextComponent.text = stringStartInstructions;
+        }
+        if (stringEndInstructions != null)
+        {
+            endInstructionsTextComponent.text = stringEndInstructions;
+        }
+        if (stringBestScore != null)
+        {
+            bestScoreTextComponent.text = stringBestScore;
+        }
     }
 
     // Update is called once per frame
@@ -47,17 +60,26 @@ public class GameMenu : MonoBehaviour
 
     public void setBestScoreText(string bestScore)
     {
-        bestScoreTextComponent.text = bestScore;
+        if(bestScoreTextComponent!=null)
+            bestScoreTextComponent.text = bestScore;
+        else
+            stringBestScore = bestScore;
     }
 
     public void setStartInstructions(string start)
     {
-        startInstructionsTextComponent.text = start;
+        if (startInstructionsTextComponent != null)
+            startInstructionsTextComponent.text = start;
+        else
+            stringStartInstructions = start;
     }
 
     public void setEndInstructions(string end)
     {
-        endInstructionsTextComponent.text = end;
+        if (endInstructionsTextComponent != null)
+            endInstructionsTextComponent.text = end;
+        else
+            stringEndInstructions = end;
     }
 
 }
