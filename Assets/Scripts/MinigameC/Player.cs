@@ -115,12 +115,5 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        lastJ = true;
-        if (collision.gameObject.tag == "DestructablePlatform")
-        {
-            Destroy(collision.gameObject);
-        }
-    }
+    
 }
