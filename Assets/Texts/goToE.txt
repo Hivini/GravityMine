@@ -1,0 +1,5 @@
+2-Hey, whats up?
+1-R-Ri-Ric-Ricardooo!!!?? What are you doing here?
+2-Just chilling, do you want to play a little game with me?
+1-Of course!!!
+1--changeSceneE

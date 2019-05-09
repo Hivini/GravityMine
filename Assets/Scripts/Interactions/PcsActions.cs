@@ -51,6 +51,17 @@ public class PcsActions : MonoBehaviour
                     StartCoroutine(ReturnHelpText());
                 }
                 break;
+            case "changeSceneE":
+                if (GameControl.control.passedLevels["Final_Minigame_E"])
+                {
+                    SceneManager.LoadScene("Final_Minigame_E");
+                }
+                else
+                {
+                    helpText.text = "You must complete game D";
+                    StartCoroutine(ReturnHelpText());
+                }
+                break;
             default:
                 break;
         }

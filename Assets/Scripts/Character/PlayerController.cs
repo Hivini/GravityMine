@@ -13,11 +13,15 @@ public class PlayerController : MonoBehaviour
     public GameObject pauseMenu;
     public Camera camera;
     public Text scoreText;
+    public AudioClip jump;
+    public AudioClip gravityChange;
+    public AudioClip coinSound;
 
     private GameObject pauseMenuInstance;
     private Rigidbody rigidbody;
     private Animator animator;
     private Collider[] groundCollisions;
+    private AudioSource audioSource;
     private bool grounded;
     private bool facingRight;
     private bool gravityDown;
@@ -26,6 +30,11 @@ public class PlayerController : MonoBehaviour
     private int score;
 
     private const float groundCheckRadius = 0.2f;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -114,6 +123,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("grounded", grounded);
             // Do the jump
             rigidbody.AddForce(new Vector3(0, jumpForce * (gravityDown?1:-1), 0));
+            audioSource.PlayOneShot(jump, 1F);
         }
 
         float h = Input.GetAxis("Horizontal");
@@ -135,6 +145,7 @@ public class PlayerController : MonoBehaviour
             {
                 Physics.gravity = Physics.gravity * -1;
                 gravityLastPressed = true;
+                audioSource.PlayOneShot(gravityChange, 1F);
                 
                 this.transform.up *= -1;
                 
@@ -205,6 +216,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(other.tag);
         if (other.tag == "Coin")
         {
+            audioSource.PlayOneShot(coinSound, 0.5F);
             UpdateScore(100);
             Destroy(other.gameObject);
         }
