@@ -121,5 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4985119139eeca142bf843b01b0356d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 2792006777299328030, guid: 79e2acdf5d5fd8e43937c4391d01fffb, type: 3}
-  bullet: {fileID: 1626423942325098153, guid: 04c37ae27fab5ba4286bec3b8450069d, type: 3}
+  bulletEnemy: {fileID: 1444914534905441505, guid: 30e71a6c775ee8d4c834cd714972d528,
+    type: 3}

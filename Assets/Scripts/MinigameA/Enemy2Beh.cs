@@ -6,7 +6,7 @@ public class Enemy2Beh : MonoBehaviour
 {
 
     GameObject player;
-    public GameObject bullet;
+    public GameObject bulletEnemy;
     public float frecuencyOfShooting;
 
     GameObject b;
@@ -64,7 +64,7 @@ public class Enemy2Beh : MonoBehaviour
             y = t.position.y;
             r = Mathf.Sqrt(x * x + y * y);
             Vector3 pos = new Vector3(x - 1f * (x / r), y - 1f * (y / r), 0);
-            b = Instantiate(bullet, pos, Quaternion.identity);
+            b = Instantiate(bulletEnemy, pos, Quaternion.identity);
             SetBullet(b);
             yield return new WaitForSeconds(frecuencyOfShooting);
         }
