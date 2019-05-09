@@ -41,7 +41,7 @@ public class Controller_E : MonoBehaviour
         inicioPlayer[7] = new Vector3(-11.5f, 42f, 0);
         inicioPlayer[8] = new Vector3(0, 42f, 0);
         inicioPlayer[9] = new Vector3(-11.5f, 42f, 0);
-        level = 3;
+        level = 1;
         waitPlayer = 0;
         isWaitingPlayer = false;
         loadGO = GameObject.Find("Load");

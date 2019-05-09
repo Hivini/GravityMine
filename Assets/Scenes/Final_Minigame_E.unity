@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.36339837, g: 0.3673315, b: 0.33939528, a: 1}
+  m_IndirectSpecularColor: {r: 0.36339816, g: 0.36733127, b: 0.33939523, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -268,7 +268,7 @@ Transform:
   m_GameObject: {fileID: 371666032}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -7, y: 20, z: -2}
-  m_LocalScale: {x: 12, y: 1, z: 6}
+  m_LocalScale: {x: 12, y: 1, z: 11.4876}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -311,22 +311,22 @@ Camera:
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
+  m_projectionMatrixMode: 2
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
   m_GateFitMode: 2
-  m_FocalLength: 50
+  m_FocalLength: 15.557401
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 18.2
+  far clip plane: 51.6
+  field of view: 75.28867
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 30.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
