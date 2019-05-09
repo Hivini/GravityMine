@@ -8,6 +8,8 @@ public class PlayerBehMiniGameB : MonoBehaviour
 {
     public float thickness;
     public GameObject exit;
+    public AudioClip hitSound, coinSound;
+    public AudioSource audioSource;
 
     private Text healthText;
     float speed, gForce;
@@ -126,6 +128,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
     {
         if (other.tag == "Finish")
         {
+            audioSource.PlayOneShot(coinSound, 1F);
             exitsLiving--;
             Destroy(other.gameObject);
             currentPoints++;
@@ -149,6 +152,7 @@ public class PlayerBehMiniGameB : MonoBehaviour
         }
         else if (other.tag == "DeadWall" )
         {
+            audioSource.PlayOneShot(hitSound, 1F);
             lives--;
             if (lives==0)
             {

@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public float speedRadial=3;
     public float rotationSpeed = 15;
     public float playerGravity = 5;
+    public AudioClip bounce;
+    private AudioSource audioSource;
 
     private bool lastJ;
     private Rigidbody rigidbody;
@@ -29,6 +31,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
         distanceText = GameObject.Find("distance").GetComponent<Text>();
         zPos = 0;
@@ -93,14 +96,10 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            audioSource.PlayOneShot(bounce, 1F);
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
             rigidbody.AddForce(0, jumpForce, 0);
             // Reset the velocity to not affect the force
-            // TODO Fix some jump bugs that are present
-            if (!lastJ)
-            {
-
-            }
             //rigidbody.AddForce(jumpForce*(new Vector3(-Mathf.Cos(AngleRad), -Mathf.Sin(AngleRad), 0)));
         }
         else if(collision.gameObject.layer==LayerMask.NameToLayer("Water"))

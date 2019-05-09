@@ -6,10 +6,13 @@ public class MazeGenerator : MonoBehaviour
 {
     System.Random r = new System.Random();
     public GameObject block, deadBlock, player;
+    public AudioClip hitSound, coinSound;
+    private AudioSource audioSource;
     private float depth = 0;
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         Maze maze = new Maze(20,32);
         bool[,] boolMaze = maze.getBooleans();
         for(int i =0; i< boolMaze.GetLength(0); i++)
@@ -33,6 +36,9 @@ public class MazeGenerator : MonoBehaviour
             var myScriptReference = p.GetComponent<PlayerBehMiniGameB>();
             if (myScriptReference != null)
             {
+                myScriptReference.hitSound = hitSound;
+                myScriptReference.coinSound = coinSound;
+                myScriptReference.audioSource = audioSource;
                 myScriptReference.SetMaze(maze);
             }
         }

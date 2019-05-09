@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PlayerBeh : MonoBehaviour
 {
     public GameObject bullet, enemy1, enemy2;
+    public AudioClip hit, shoot, enemySound;
+    private AudioSource audioSource;
     List<GameObject> en = new List<GameObject>();
     GameObject b, e;
     Rigidbody rb;
@@ -50,6 +52,7 @@ public class PlayerBeh : MonoBehaviour
 
         rb = this.GetComponent<Rigidbody>();
         t = this.GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
 
         block = false;
         startEnemiesL1();
@@ -90,7 +93,7 @@ public class PlayerBeh : MonoBehaviour
        
         if (Input.GetKey(KeyCode.Space) &&(!block))//Shoot
         {
-            
+            audioSource.PlayOneShot(shoot, 1F);
             b = Instantiate(bullet, this.t.position + new Vector3(1f * (y / r)* (angularVel > 0 ? 1 : -1),
                 -1f* (angularVel > 0 ? 1 : -1) * (x / r), 0), Quaternion.identity);
             SetBullet(b, false);
@@ -138,6 +141,7 @@ public class PlayerBeh : MonoBehaviour
         if (!collision.collider.tag.Equals( "BulletFriend"))// you can't shoot yourself
 
         {
+            audioSource.PlayOneShot(hit, 1F);
             lives--;
             text.text = "Level:    " + level + "     Lives: " + lives;
             if (lives==0)
@@ -182,6 +186,7 @@ public class PlayerBeh : MonoBehaviour
 
     public void enemyDestroyed(GameObject e)
     {
+        audioSource.PlayOneShot(enemySound, 1F);
         this.sizeEnemies--;
         if (sizeEnemies == 0)
         {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Controller_E : MonoBehaviour
 {
     public GameObject p, w, bw;
+    public AudioClip createSound, startSound, moveSound, coinSound, hitSound;
     GameObject player;
     Vector3[] inicioPlayer;
     int level;
@@ -18,11 +19,14 @@ public class Controller_E : MonoBehaviour
     RaycastHit hit;
     GameObject wa;
 
+    private AudioSource audioSource;
+
 
     // Start is called before the first frame update
     void Start()
 
     {
+        audioSource = GetComponent<AudioSource>();
         allWalls  = new Queue<GameObject>();
         selected=null;
         points = 100;
@@ -62,6 +66,7 @@ public class Controller_E : MonoBehaviour
                 //INSTANCIA WALL
                 if (Physics.Raycast(ray, out hit))
                 {
+                    audioSource.PlayOneShot(createSound, 1F);
                     wa = Instantiate(w, new Vector3(hit.point.x, hit.point.y, 0), Quaternion.identity);
                     allWalls.Enqueue(wa);
                 }
@@ -73,6 +78,7 @@ public class Controller_E : MonoBehaviour
                 points -= 2;
                 if (Physics.Raycast(ray, out hit))
                 {
+                    audioSource.PlayOneShot(createSound, 1F);
                     wa = Instantiate(bw, new Vector3(hit.point.x, hit.point.y, 0), Quaternion.identity);
                     allWalls.Enqueue(wa);
                 }
@@ -118,7 +124,8 @@ public class Controller_E : MonoBehaviour
             // START PLAYING
             if (Input.GetKey(KeyCode.Space) && !isWaitingPlayer)
             {
-                    player = Instantiate(p, inicioPlayer[level - 1], Quaternion.identity);
+                audioSource.PlayOneShot(startSound, 1F);
+                player = Instantiate(p, inicioPlayer[level - 1], Quaternion.identity);
                     waitPlayer = 0;
                     isWaitingPlayer = true;
 
@@ -223,6 +230,7 @@ public class Controller_E : MonoBehaviour
             // DESTROY PLAYER OUTSIDE PLANE.
             if (Input.GetKey(KeyCode.Space) && !isWaitingPlayer)
             {
+                audioSource.PlayOneShot(hitSound, 1F);
                 Destroy(player);
                 waitPlayer = 0;
                 player = null;
@@ -232,6 +240,7 @@ public class Controller_E : MonoBehaviour
             {
                 if (Mathf.Abs(player.transform.position.y) > 50 || Mathf.Abs(player.transform.position.x) > 100)
                 {
+                    audioSource.PlayOneShot(hitSound, 1F);
                     Destroy(player);
                     //print("destruido");
                 }
@@ -249,7 +258,8 @@ public class Controller_E : MonoBehaviour
     }
     public void nextLevel()
     {
-            level++;
+        audioSource.PlayOneShot(coinSound, 1F);
+        level++;
             points += 100;
         var load = loadGO.GetComponent<LoadLevel>();
             load.LoadLev(level);

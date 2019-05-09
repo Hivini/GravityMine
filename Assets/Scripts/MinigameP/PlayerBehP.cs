@@ -11,6 +11,7 @@ public class PlayerBehP : MonoBehaviour
     public GameObject enemy;
     public GameObject auxPortal;
     public Text liveText;
+    public AudioClip hitSound, coinSound;
     GameObject ap, aw, e;
     public GameObject ch;
     float speed;
@@ -27,6 +28,7 @@ public class PlayerBehP : MonoBehaviour
     Ray ray;
     private float depth;
     private string sceneName;
+    private AudioSource audioSource;
 
 
     GameMenu gameMenu;
@@ -36,6 +38,7 @@ public class PlayerBehP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         sceneName = SceneManager.GetActiveScene().name;
         gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
         gameMenu.setStartInstructions("Go through the blue portal\nLeft Click to spawn the ball\nRight click to spawn wall\nRight and left to rotate last wall\n** Click to start playing **");
@@ -173,6 +176,7 @@ public class PlayerBehP : MonoBehaviour
         {
             if (collision.collider.tag.Equals("EnterPortal"))
             {
+                audioSource.PlayOneShot(coinSound, 1F);
                 hasEnter = true;
                 rb.velocity = Vector3.zero;
                 StartCoroutine("wait");
@@ -209,6 +213,7 @@ public class PlayerBehP : MonoBehaviour
             }
             else
             {
+                audioSource.PlayOneShot(hitSound, 1F);
                 lives--;
                 liveText.text = "Lives: " + lives + " Level: " + level;
                 if (lives == 0)
