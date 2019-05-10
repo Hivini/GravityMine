@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
             string sceneName = SceneManager.GetActiveScene().name;
             GameControl.control.FinishMinigame(sceneName, zPos);
             GameControl.control.Save();
-            gameMenu.setBestScoreText("Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters");
+            gameMenu.setBestScoreText("Current best score is: \n" + GameControl.control[sceneName] + " meters");
             gameMenu.endDisplay();
         }
     }
