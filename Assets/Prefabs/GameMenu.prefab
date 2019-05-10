@@ -142,9 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda63a9ffa596c649b237b228e24e131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startInstructionsText: 
-  endInstructionsText: 
-  bestScoreText: 'Current Best Score: '
   startInstructions: {fileID: 8302927047213066014}
   endInstructions: {fileID: 8302927047557754119}
   bestScore: {fileID: 8302927047049547907}
@@ -392,10 +389,18 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 8
     m_MaxSize: 81
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'asdfasdfasdfsadfsdaf
+
+    asdfsad
+
+    fas
+
+    df
+
+    sdafsad'
