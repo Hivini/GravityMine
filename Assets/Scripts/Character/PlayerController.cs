@@ -126,7 +126,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("grounded", grounded);
             // Do the jump
             rigidbody.AddForce(new Vector3(0, jumpForce * (gravityDown?1:-1), 0));
-            audioSource.PlayOneShot(jump, 1F);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(jump, 1F);
+            }
         }
 
         float h = Input.GetAxis("Horizontal");
