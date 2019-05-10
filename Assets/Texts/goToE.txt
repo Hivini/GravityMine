@@ -1,4 +1,5 @@
-2-Hey, whats up?
-1-R-Ri-Ric-Ricardooo!!!?? What are you doing here?
-2-Just chilling, do you want to play a little game with me?
-1-Of course!!!-changeSceneE
+2-I want to go home, please help me!! 
+1-I'm Ricardo, the god of this dimension!
+2-Please... help me!
+1-I'm love and a generous god, I'm going to send you home.
+1-Just finish this-changeSceneE

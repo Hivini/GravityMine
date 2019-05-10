@@ -1,5 +1,5 @@
-1-Hi, do you want to play a game?
-2-What kind of game?
-1-Just follow me
-2-Ok...
-2--changeSceneA
+1-Who are you?
+2-What?!
+1-Are you with them, or with us?!
+2-I think that... with you...
+1-Then join the battle!-changeSceneA

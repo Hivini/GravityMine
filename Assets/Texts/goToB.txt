@@ -1,6 +1,5 @@
-2-I don't think you are in the right game...
-1-Shut up, do you want some gangsta style game?
-2-What are you talking about?
-1-Just come with me
-2-Ok... (What's up with this weirdos?)
-2--changeSceneB
+1-Do u want som drugs??
+2-I don't think that's good for my health
+1-It will open your mind!
+2-Okay... I think I'm already on drugs, so I don't lose anything.
+1-You will not regret!-changeSceneB

@@ -1,7 +1,5 @@
-1-Hi! Why are you here? Isn't this place dangerous?
-2-Yeah, I know, there are some weird people over the place, aren't you just a little girl?
+2-There are some weird people over the place, aren't you just a little girl?
 1-I'm actually 300 years old.
 2-What? That doesn't even make sense.
-1-That's insulting, pass my challenge and I will forgive you.
-2-Another minigame? Well, I have nothing to lose, so...
-2--changeSceneC
+1-Onichan! That's insulting, pass my challenge and I will forgive you and invest upon you my powers.
+2-I will do my best!-changeSceneC
