@@ -6,7 +6,7 @@ public class Enemy1Beh : MonoBehaviour
 {
     // Start is called before the first frame update
     GameObject player;
-    public GameObject bullet;
+    public GameObject bulletEnemy;
     GameObject b;
     Rigidbody rb;
     Transform t;
@@ -61,7 +61,7 @@ public class Enemy1Beh : MonoBehaviour
             y = t.position.y;
             r = Mathf.Sqrt(x * x + y * y);
             Vector3 pos = new Vector3(x - 1f * (y / r), y - 1f * (x / r), 0);
-            b = Instantiate(bullet, pos, Quaternion.identity);
+            b = Instantiate(bulletEnemy, pos, Quaternion.identity);
             SetBullet(b);
             yield return new WaitForSeconds(frecuencyOfShooting);
         }
