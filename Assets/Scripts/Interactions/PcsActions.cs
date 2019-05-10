@@ -52,7 +52,7 @@ public class PcsActions : MonoBehaviour
                 }
                 break;
             case "changeSceneE":
-                if (GameControl.control.passedLevels["Final_Minigame_E"])
+                if (GameControl.control.passedLevels["Final_Minigame_D"])
                 {
                     SceneManager.LoadScene("Final_Minigame_E");
                 }

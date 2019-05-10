@@ -40,13 +40,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         gravityLastPressed = false;
+        
         if(PlayerPrefs.GetInt("gravityDown", 1) == 1)
         {
+            Physics.gravity = new Vector3(0, -9.81f, 0);
             PlayerPrefs.SetInt("gravityDown", 1);
             gravityDown = true;
         }
         else
         {
+            Physics.gravity = new Vector3(0, 9.81f, 0);
             gravityDown = false;
             this.transform.up *= -1;
         }
@@ -139,7 +142,7 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
-        if (Input.GetButton("ChangeGravity"))
+        if (Input.GetButton("Fire3"))
         {
             if (!gravityLastPressed)
             {
@@ -150,14 +153,14 @@ public class PlayerController : MonoBehaviour
                 this.transform.up *= -1;
                 
                 gravityDown = !gravityDown;
-                PlayerPrefs.SetInt("gravityDirection", gravityDown?1:0);
+                PlayerPrefs.SetInt("gravityDown", gravityDown?1:0);
             }
         }
         else
         {
             gravityLastPressed = false;
         }
-        if (Input.GetButton("LessGravity"))
+        if (Input.GetAxis("Vertical")>0 && score >= 2500)
         {
             if(gravityDown)
                 Physics.gravity = new Vector3(0, .1f + Physics.gravity.y, 0);
@@ -165,7 +168,7 @@ public class PlayerController : MonoBehaviour
                 Physics.gravity = new Vector3(0, -.1f + Physics.gravity.y, 0);
             print(Physics.gravity);
         }
-        else if (Input.GetButton("MoreGravity"))
+        else if (Input.GetAxis("Vertical")<0 && score >= 2500)
         {
             if (gravityDown)
                 Physics.gravity = new Vector3(0, -.1f + Physics.gravity.y, 0);
@@ -173,13 +176,13 @@ public class PlayerController : MonoBehaviour
                 Physics.gravity = new Vector3(0, .1f + Physics.gravity.y, 0);
             print(Physics.gravity);
         }
-        if (gravityDown && Physics.gravity.y>0)
+        if (gravityDown && Physics.gravity.y>=0)
         {
-            Physics.gravity *= 0;
+            Physics.gravity = new Vector3(0, -.2f, 0);
         }
-        else if(!gravityDown && Physics.gravity.y < 0)
+        else if(!gravityDown && Physics.gravity.y <= 0)
         {
-            Physics.gravity *= 0;
+            Physics.gravity = new Vector3(0, .2f, 0);
         }
     }
 
