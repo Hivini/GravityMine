@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -215,6 +216,12 @@ public class PlayerController : MonoBehaviour
     public void ClickTest()
     {
         GameControl.control.Save();
+    }
+
+    public void ExitGame()
+    {
+        GameControl.control.Save();
+        SceneManager.LoadScene("StartMenu");
     }
 
     private void OnTriggerEnter(Collider other)
