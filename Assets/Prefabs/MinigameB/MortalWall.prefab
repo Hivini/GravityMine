@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1231733290368770608}
   - component: {fileID: 4401914238801926637}
   - component: {fileID: 8608001039368366722}
+  - component: {fileID: 3581342552526265869}
   m_Layer: 0
   m_Name: MortalWall
   m_TagString: DeadWall
@@ -104,3 +105,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceba6702728ecf447be0f9038178c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3581342552526265869
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180204859184299942}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7fd24aca4fcb9d74ca6b174435c0645b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

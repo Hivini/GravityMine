@@ -28,10 +28,12 @@ public class PlayerBeh : MonoBehaviour
     private bool ended = false;
     public GameMenu gameMenu;
     string sceneName;
+    Animator animator;
 
     void Start()
     {
         sceneName = SceneManager.GetActiveScene().name;
+        animator = GetComponent<Animator>();
         fibon = 1;
         fibon1=1;
 
@@ -158,6 +160,8 @@ public class PlayerBeh : MonoBehaviour
                 //SceneManager.LoadScene("PresentationScene");
 
             }
+            animator.SetTrigger("Damage");
+            
         }
     }
     public void SetBullet(GameObject b, bool isRadial)
