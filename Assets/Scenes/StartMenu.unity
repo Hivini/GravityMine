@@ -112,6 +112,108 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &177876523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7397589788600583684, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Name
+      value: GravityMine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583689, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.7810965
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.9897346
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.4190146
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9079795
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 49.545002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583688, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583690, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 765c2608c659b5d4a9444f430008f161, type: 2}
+    - target: {fileID: 7397589787792351966, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589787792351967, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Gravity
+
+        Mine'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589787792351967, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Alignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397589788600583685, guid: da6195a361cddf94199586c95b7f8396,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7397589788600583689, guid: da6195a361cddf94199586c95b7f8396, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: da6195a361cddf94199586c95b7f8396, type: 3}
 --- !u!1 &407181480
 GameObject:
   m_ObjectHideFlags: 0

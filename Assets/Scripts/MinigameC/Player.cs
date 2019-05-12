@@ -43,7 +43,8 @@ public class Player : MonoBehaviour
         startPos = transform.position;
         gameMenu.setStartInstructions("Go as far as possible!\n** Click to start playing **");
         gameMenu.setEndInstructions("End Game\n** Click anywhere to retry **\n** Click on exit to return to game selection**");
-        gameMenu.setBestScoreText("Current best score is: \n" + PlayerPrefs.GetInt("gameC", 0).ToString() + " meters");
+        string sceneName = SceneManager.GetActiveScene().name;
+        gameMenu.setBestScoreText("Current best score is: \n" + GameControl.control[sceneName] + " meters");
         gameMenu.startDisplay();
         Time.timeScale = 0;
         ended = false;
